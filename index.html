@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Letras em Transformação - Regras e Pontuação</title>
+    <title>Letras em Transformação - Alfabeto Completo</title>
     <style>
         * { box-sizing: border-box; font-family: system-ui, 'Segoe UI', sans-serif; }
         body { background: #1e2b2c; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; margin: 0; }
@@ -26,7 +26,6 @@
         footer { font-size: 0.7rem; text-align: center; margin-top: 20px; color: #6f7e7a; border-top: 1px solid #e0d5c0; padding-top: 12px; }
         .debug { background: #ffecb3; padding: 8px; border-radius: 16px; margin-top: 12px; font-family: monospace; font-size: 0.75rem; text-align: center; }
         
-        /* Modal compacto com fonte menor */
         .modal {
             display: none;
             position: fixed;
@@ -52,48 +51,20 @@
             font-size: 0.8rem;
             line-height: 1.35;
         }
-        .modal-content h2 {
-            font-size: 1.2rem;
-            margin-top: 0;
-            margin-bottom: 10px;
-            color: #2d3e3f;
-        }
-        .modal-content ul, .modal-content p {
-            margin: 6px 0;
-        }
-        .modal-content li {
-            margin-bottom: 4px;
-        }
-        .close-modal {
-            color: #aaa;
-            float: right;
-            font-size: 24px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+        .modal-content h2 { font-size: 1.2rem; margin-top: 0; margin-bottom: 10px; color: #2d3e3f; }
+        .modal-content ul, .modal-content p { margin: 6px 0; }
+        .modal-content li { margin-bottom: 4px; }
+        .close-modal { color: #aaa; float: right; font-size: 24px; font-weight: bold; cursor: pointer; }
         .close-modal:hover { color: black; }
-        .btn-regras {
-            background: #e3b23c;
-            color: #2d3e3f;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-            padding: 8px 16px;
-        }
-        .rules-summary {
-            background: #e9f0e6;
-            border-radius: 20px;
-            padding: 8px 12px;
-            margin: 12px 0;
-            font-size: 0.75rem;
-            border-left: 4px solid #2e7d64;
-        }
+        .btn-regras { background: #e3b23c; color: #2d3e3f; margin-bottom: 8px; font-size: 0.9rem; padding: 8px 16px; }
+        .rules-summary { background: #e9f0e6; border-radius: 20px; padding: 8px 12px; margin: 12px 0; font-size: 0.75rem; border-left: 4px solid #2e7d64; }
         .rules-summary strong { color: #2e7d64; }
     </style>
 </head>
 <body>
 <div class="game-container">
-    <h1>📖 Letras em Transformação <span style="font-size:0.7rem;">🎭 Terror, Comédia, Romance...</span></h1>
-    <div class="sub">Clique nos botões – jogo funcional no Firefox e GitHub Pages.</div>
+    <h1>📖 Letras em Transformação <span style="font-size:0.7rem;">🎭 Alfabeto completo!</span></h1>
+    <div class="sub">Todas as letras têm palavras exclusivas. Divirta-se!</div>
 
     <button class="btn-regras" onclick="abrirModalRegras()">📜 Regras e Pontuação</button>
 
@@ -143,11 +114,9 @@
     </div>
     <div id="debugMsg" class="debug">✅ Jogo carregado. Clique em SORTEAR.</div>
     
-    <!-- Créditos no rodapé -->
     <footer>✨ Jogo desenvolvido por <strong>Sahmara Carolina</strong> ✨<br>🧠 Educação não formal – literatura e transformação social</footer>
 </div>
 
-<!-- Modal de regras compacto (fonte pequena, sem créditos) -->
 <div id="modalRegras" class="modal">
     <div class="modal-content">
         <span class="close-modal" onclick="fecharModalRegras()">&times;</span>
@@ -155,8 +124,8 @@
         <p><strong>Objetivo:</strong> Criar textos literários a partir de problema social, letra (com palavra associada) e gênero.</p>
         <p><strong>Jogadores:</strong> 2 a 6 (ou solo/cooperativo).</p>
         <ul>
-            <li><strong>1. Sortear</strong> – clique em "SORTEAR COMBINAÇÃO". Aparecerá: Problema Social + Letra (com 3 palavras) + Gênero (Terror, Comédia, Romance, Aventura, Suspense, Drama, Ficção Científica, Fantasia).</li>
-            <li><strong>2. Escolher uma palavra</strong> – das 3 sugeridas para a letra, o jogador escolhe apenas UMA (não precisa usar todas).</li>
+            <li><strong>1. Sortear</strong> – clique em "SORTEAR COMBINAÇÃO".</li>
+            <li><strong>2. Escolher uma palavra</strong> – das 3 sugeridas para a letra, o jogador escolhe apenas UMA.</li>
             <li><strong>3. Criar (1:30)</strong> – use o timer opcional. Texto curto (poema, miniconto, cena).</li>
             <li><strong>4. Debate</strong> – sem tempo limite, o grupo discute a relação com o problema social.</li>
             <li><strong>5. Pontuar</strong> – outros jogadores dão +1 (pertinente), +2 (criativo) ou +3 (impactante).</li>
@@ -168,26 +137,50 @@
 </div>
 
 <script>
-    // ==================== BANCO DE DADOS ====================
+    // ==================== BANCO DE DADOS COM TODAS AS LETRAS ====================
+    const letrasPalavras = {
+        "A": ["amor", "acolhimento", "agir"],
+        "B": ["basta", "bem-viver", "batalha"],
+        "C": ["coragem", "comunidade", "crítica"],
+        "D": ["dignidade", "denúncia", "diálogo"],
+        "E": ["empatia", "esperança", "educação"],
+        "F": ["força", "futuro", "fratura"],
+        "G": ["grito", "generosidade", "gente"],
+        "H": ["honestidade", "humanidade", "horizonte"],
+        "I": ["inclusão", "inconformismo", "iniciativa"],
+        "J": ["justiça", "jornada", "jovem"],
+        "K": ["kairós", "karma social", "knowledge"],
+        "L": ["liberdade", "luta", "literatura"],
+        "M": ["memória", "mudança", "mobilização"],
+        "N": ["narrativa", "não-violência", "nós"],
+        "O": ["ousadia", "olhar crítico", "organização"],
+        "P": ["poesia", "periferia", "pacto"],
+        "Q": ["quebra de silêncio", "querer coletivo", "quimera"],
+        "R": ["resistência", "rede", "respeito"],
+        "S": ["solidariedade", "sistema", "silêncio"],
+        "T": ["ternura", "terra", "testemunho"],
+        "U": ["utopia", "unidade", "urgência"],
+        "V": ["voz", "vida digna", "vulnerabilidade"],
+        "W": ["wanderlust", "woke", "will power"],
+        "X": ["xenofilia", "xerografia social", "xadrez"],
+        "Y": ["yoga social", "youth", "yarn"],
+        "Z": ["zelo", "zona de conflito", "zumbido"]
+    };
+    
+    // Garantia de que todas as 26 letras estão presentes (caso alguma falte)
+    const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+    for (let letra of alfabeto) {
+        if (!letrasPalavras[letra]) {
+            letrasPalavras[letra] = ["transformação", "consciência", "ação"];
+        }
+    }
+    
     const problemas = [
         "Racismo estrutural", "Fome e insegurança alimentar", "Desemprego",
         "Violência contra a mulher", "LGBTQIA+fobia", "Desinformação",
         "Acesso precário à saúde", "Moradia irregular", "Mudanças climáticas",
         "Trabalho infantil", "Capacitismo", "Intolerância religiosa"
     ];
-    
-    const letrasPalavras = {
-        "A": ["amor", "acolhimento", "agir"], "C": ["coragem", "comunidade", "crítica"],
-        "D": ["dignidade", "denúncia", "diálogo"], "E": ["empatia", "esperança", "educação"],
-        "F": ["força", "futuro", "fratura"], "G": ["grito", "generosidade", "gente"],
-        "I": ["inclusão", "inconformismo", "iniciativa"], "L": ["liberdade", "luta", "literatura"],
-        "M": ["memória", "mudança", "mobilização"], "O": ["ousadia", "olhar crítico", "organização"],
-        "P": ["poesia", "periferia", "pacto"], "R": ["resistência", "rede", "respeito"],
-        "S": ["solidariedade", "sistema", "silêncio"], "T": ["ternura", "terra", "testemunho"],
-        "V": ["voz", "vida digna", "vulnerabilidade"]
-    };
-    const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-    for (let l of alfabeto) if (!letrasPalavras[l]) letrasPalavras[l] = ["transformação", "consciência", "ação"];
     
     const generos = ["Terror", "Comédia", "Romance", "Aventura", "Suspense", "Drama", "Ficção Científica", "Fantasia"];
     
@@ -211,7 +204,7 @@
             const palavras = letrasPalavras[letra];
             palavrasEl.innerText = "📌 " + palavras.join(" · ");
             generoEl.innerText = generos[Math.floor(Math.random() * generos.length)];
-            atualizarDebug(`🎲 Sorteado | Letra ${letra} | Escolha UMA palavra: ${palavras.join(", ")}`);
+            atualizarDebug(`🎲 Sorteado | Letra ${letra} | Palavras: ${palavras.join(", ")}`);
         } catch(e) { atualizarDebug("ERRO: " + e.message); }
     }
     
@@ -251,7 +244,7 @@
         if(!problemaEl) { console.error("Erro"); return; }
         sortearTudo();
         resetTimer();
-        atualizarDebug("✅ Pronto! Escolha UMA palavra da letra.");
+        atualizarDebug("✅ Pronto! Todas as letras têm palavras exclusivas.");
     }
     
     window.sortearTudo = sortearTudo;
