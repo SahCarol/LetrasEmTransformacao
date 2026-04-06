@@ -3,251 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Letras em Transformação - Jogo Funcional</title>
+    <title>Letras em Transformação - Versão Firefox</title>
     <style>
         * { box-sizing: border-box; font-family: system-ui, 'Segoe UI', sans-serif; }
         body { background: #1e2b2c; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; margin: 0; }
         .game-container { max-width: 800px; width: 100%; background: #fef7e6; border-radius: 48px; padding: 1.8rem; box-shadow: 0 20px 35px rgba(0,0,0,0.4); }
-        h1 { margin: 0 0 0.3rem; font-size: 1.9rem; color: #2d3e3f; display: flex; gap: 10px; flex-wrap: wrap; }
-        h1 small { font-size: 0.8rem; background: #d9e3c6; padding: 4px 12px; border-radius: 40px; }
-        .sub { border-left: 4px solid #e3b23c; padding-left: 16px; margin: 10px 0 20px; font-style: italic; color: #4a5b5e; }
+        h1 { margin: 0 0 0.3rem; font-size: 1.9rem; color: #2d3e3f; }
+        .sub { border-left: 4px solid #e3b23c; padding-left: 16px; margin: 10px 0 20px; font-style: italic; }
         .card { background: white; border-radius: 32px; padding: 1.5rem; margin: 1.2rem 0; border: 1px solid #ffe1a0; }
         .problema { background: #fceded; border-left: 12px solid #c7362b; }
         .letra { background: #eef5f0; border-left: 12px solid #2e7d64; }
         .genero { background: #fff0db; border-left: 12px solid #e3b23c; }
-        .badge { font-weight: bold; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; display: block; margin-bottom: 8px; }
+        .badge { font-weight: bold; text-transform: uppercase; font-size: 0.7rem; margin-bottom: 8px; }
         h2 { margin: 0 0 8px; font-size: 1.7rem; }
         .palavras { font-family: monospace; background: #e9ecef; padding: 8px 12px; border-radius: 50px; display: inline-block; margin-top: 8px; }
-        button { background: #2e7d64; border: none; padding: 12px 24px; font-size: 1.1rem; font-weight: bold; border-radius: 60px; color: white; cursor: pointer; margin-right: 10px; margin-top: 8px; transition: 0.1s; }
-        button:hover { background: #1e5b49; transform: scale(0.97); }
+        button { background: #2e7d64; border: none; padding: 12px 24px; font-size: 1.1rem; font-weight: bold; border-radius: 60px; color: white; cursor: pointer; margin-right: 10px; margin-top: 8px; }
+        button:hover { background: #1e5b49; }
         .timer-area { background: #1e2b2c; color: #ffe1a0; padding: 12px; border-radius: 60px; text-align: center; font-weight: bold; font-size: 1.4rem; margin: 20px 0; }
-        textarea { width: 100%; border-radius: 24px; border: 1px solid #ddd; padding: 12px; font-size: 1rem; margin: 10px 0; resize: vertical; }
+        textarea { width: 100%; border-radius: 24px; border: 1px solid #ddd; padding: 12px; font-size: 1rem; margin: 10px 0; }
         .score-area { display: flex; gap: 10px; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-top: 15px; }
         .score-btn { background: #e3b23c; color: #2d3e3f; padding: 6px 12px; font-size: 0.8rem; }
         footer { font-size: 0.7rem; text-align: center; margin-top: 28px; color: #6f7e7a; }
-        .debug-msg { background: #ffecb3; padding: 8px; border-radius: 16px; font-size: 0.8rem; margin-top: 10px; text-align: center; }
+        .status { background: #d1e7dd; padding: 8px; border-radius: 16px; margin-top: 10px; text-align: center; font-weight: bold; }
     </style>
 </head>
 <body>
 <div class="game-container">
-    <h1>📖 Letras em Transformação <small>v2 - funcionando</small></h1>
-    <div class="sub">⚡ clique em SORTEAR, depois inicie o timer. Escreva seu texto e pontue!</div>
+    <h1>📖 Letras em Transformação <span style="font-size:0.8rem;">🐞 Firefox OK</span></h1>
+    <div class="sub">Clique nos botões – todos devem funcionar. Teste o timer e a pontuação.</div>
 
-    <div class="card problema" id="cardProblema">
+    <div class="card problema">
         <div class="badge">🚨 PROBLEMA SOCIAL</div>
-        <h2 id="problemaTexto">—</h2>
+        <h2 id="problemaTexto">Carregando...</h2>
     </div>
 
-    <div class="card letra" id="cardLetra">
-        <div class="badge">🔤 LETRA + PALAVRA-CHAVE</div>
-        <h2 id="letraTexto">—</h2>
-        <div class="palavras" id="palavrasAssociadas">✨ palavras inspiradoras</div>
+    <div class="card letra">
+        <div class="badge">🔤 LETRA + PALAVRAS</div>
+        <h2 id="letraTexto">?</h2>
+        <div class="palavras" id="palavrasAssociadas">---</div>
     </div>
 
-    <div class="card genero" id="cardGenero">
+    <div class="card genero">
         <div class="badge">✍️ GÊNERO LITERÁRIO</div>
-        <h2 id="generoTexto">—</h2>
+        <h2 id="generoTexto">?</h2>
     </div>
 
     <div class="timer-area">
-        ⏱️ <span id="timerDisplay">1:30</span> — tempo para criar
-        <div style="margin-top: 10px;">
-            <button id="startTimerBtn">▶ Iniciar timer (1:30)</button>
-            <button id="resetTimerBtn">🔄 Resetar</button>
+        ⏱️ <span id="timerDisplay">1:30</span>
+        <div>
+            <button id="btnTimerIniciar">▶ Iniciar timer</button>
+            <button id="btnTimerReset">🔄 Resetar timer</button>
         </div>
     </div>
 
     <div>
-        <button id="sortearBtn">🎲 SORTEAR NOVA COMBINAÇÃO</button>
-        <button id="limparBtn">🧹 Limpar campo</button>
+        <button id="btnSortear">🎲 SORTEAR COMBINAÇÃO</button>
+        <button id="btnLimpar">🧹 Limpar texto</button>
     </div>
 
-    <textarea id="meuTexto" rows="3" placeholder="Escreva aqui o seu poema, miniconto, carta aberta... (máx 4 linhas ou 30s de fala)"></textarea>
+    <textarea id="meuTexto" rows="3" placeholder="Escreva seu poema, miniconto, carta..."></textarea>
 
     <div class="score-area">
-        <span>⭐ Pontuação (opcional):</span>
-        <button class="score-btn" data-points="1">+1 (pertinente)</button>
-        <button class="score-btn" data-points="2">+2 (criativo)</button>
-        <button class="score-btn" data-points="3">+3 (impactante)</button>
+        <span>⭐ Pontos:</span>
+        <button id="btnMais1">+1</button>
+        <button id="btnMais2">+2</button>
+        <button id="btnMais3">+3</button>
         <span>Total: <strong id="totalPontos">0</strong></span>
-        <button id="zerarPontos" class="score-btn">Zerar</button>
+        <button id="btnZerarPontos">Zerar</button>
     </div>
-    <div id="debugMessage" class="debug-msg">✅ Jogo carregado. Clique em SORTEAR para começar.</div>
-    <footer>
-        🧠 Dica: após cada criação, converse sobre o problema social. Para jogar online, compartilhe a tela.
-    </footer>
+    <div id="statusMsg" class="status">✅ Jogo pronto. Clique em SORTEAR.</div>
+    <footer>🧠 Cada rodada: sorteie, crie, debata, pontue.</footer>
 </div>
 
 <script>
-    (function() {
-        console.log("Script iniciado");
-
-        // ---------- BANCO DE DADOS ----------
-        const problemasSociais = [
-            "Racismo estrutural", "Fome e insegurança alimentar", "Desemprego e precarização", 
-            "Violência contra a mulher", "LGBTQIA+fobia", "Desinformação e fake news", 
-            "Acesso precário à saúde", "Moradia irregular / falta de moradia", 
-            "Mudanças climáticas e injustiça ambiental", "Trabalho infantil", 
-            "Capacitismo / discriminação contra pessoas com deficiência", 
-            "Intolerância religiosa", "Machismo no dia a dia", "Envelhecimento e abandono"
+    // Garantir que o DOM esteja completamente carregado antes de vincular eventos
+    document.addEventListener("DOMContentLoaded", function() {
+        console.log("DOM carregado - Firefox edition");
+        
+        // ---------- DADOS ----------
+        const problemas = [
+            "Racismo estrutural", "Fome", "Desemprego", "Violência contra a mulher",
+            "LGBTQIA+fobia", "Desinformação", "Acesso precário à saúde", "Moradia irregular",
+            "Mudanças climáticas", "Trabalho infantil", "Capacitismo", "Intolerância religiosa"
         ];
-
-        // Dicionário de letras e palavras (alfabeto completo)
-        const letrasPalavras = {};
-        const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-        // Palavras padrão para qualquer letra não definida
-        const defaultPalavras = ["transformação", "consciência", "ação"];
-        // Definir algumas letras especiais
-        const especiais = {
-            "A": ["amor", "acolhimento", "agir"], "C": ["coragem", "comunidade", "crítica"],
-            "D": ["dignidade", "denúncia", "diálogo"], "E": ["empatia", "esperança", "educação"],
-            "F": ["força", "futuro", "fratura social"], "G": ["grito", "generosidade", "gente"],
-            "I": ["inclusão", "inconformismo", "iniciativa"], "L": ["liberdade", "luta", "literatura"],
-            "M": ["memória", "mudança", "mobilização"], "O": ["ousadia", "olhar crítico", "organização"],
-            "P": ["poesia", "periferia", "pacto"], "R": ["resistência", "rede", "respeito"],
-            "S": ["solidariedade", "sistema", "silêncio"], "T": ["ternura", "terra", "testemunho"],
-            "V": ["voz", "vida digna", "vulnerabilidade"]
+        
+        const letrasPalavras = {
+            "A": ["amor", "acolhimento"], "C": ["coragem", "crítica"], "D": ["dignidade", "denúncia"],
+            "E": ["empatia", "esperança"], "F": ["força", "futuro"], "G": ["grito", "generosidade"],
+            "I": ["inclusão", "iniciativa"], "L": ["liberdade", "literatura"], "M": ["memória", "mudança"],
+            "O": ["ousadia", "organização"], "P": ["poesia", "periferia"], "R": ["resistência", "rede"],
+            "S": ["solidariedade", "sistema"], "T": ["ternura", "terra"], "V": ["voz", "vida digna"]
         };
-        for (let letra of alfabeto) {
-            if (especiais[letra]) {
-                letrasPalavras[letra] = especiais[letra];
-            } else {
-                letrasPalavras[letra] = defaultPalavras;
-            }
+        // Completa com todas as letras do alfabeto
+        const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+        for (let l of alfabeto) {
+            if (!letrasPalavras[l]) letrasPalavras[l] = ["transformação", "ação"];
         }
-
-        const generosLiterarios = [
-            "Poema (até 4 versos)", "Miniconto (máx 3 linhas)", "Carta aberta", 
-            "Diálogo teatral", "Crônica curta", "Notícia ficcional"
-        ];
-
-        // Elementos DOM
+        
+        const generos = ["Poema (4 versos)", "Miniconto (3 linhas)", "Carta aberta", "Diálogo teatral", "Crônica", "Notícia ficcional"];
+        
+        // Elementos
         const problemaEl = document.getElementById("problemaTexto");
         const letraEl = document.getElementById("letraTexto");
         const palavrasEl = document.getElementById("palavrasAssociadas");
         const generoEl = document.getElementById("generoTexto");
-        const sortearBtn = document.getElementById("sortearBtn");
-        const limparBtn = document.getElementById("limparBtn");
         const textoArea = document.getElementById("meuTexto");
-        const startTimerBtn = document.getElementById("startTimerBtn");
-        const resetTimerBtn = document.getElementById("resetTimerBtn");
-        const timerDisplaySpan = document.getElementById("timerDisplay");
         const totalPontosSpan = document.getElementById("totalPontos");
-        const zerarPontosBtn = document.getElementById("zerarPontos");
-        const debugMsg = document.getElementById("debugMessage");
-
-        function mostrarDebug(msg, isErro = false) {
-            debugMsg.innerHTML = isErro ? `⚠️ ${msg}` : `✅ ${msg}`;
-            debugMsg.style.background = isErro ? "#ffcdd2" : "#ffecb3";
-            console.log(msg);
-        }
-
+        const statusDiv = document.getElementById("statusMsg");
+        
         // Timer
         let timerInterval = null;
-        let segundosRestantes = 90;
-
-        function atualizarTimerDisplay() {
-            let minutos = Math.floor(segundosRestantes / 60);
-            let segs = segundosRestantes % 60;
-            timerDisplaySpan.innerText = `${minutos}:${segs < 10 ? '0'+segs : segs}`;
-            if (segundosRestantes <= 0 && timerInterval) {
+        let segundos = 90;
+        const timerDisplay = document.getElementById("timerDisplay");
+        
+        function atualizarTimerUI() {
+            let min = Math.floor(segundos / 60);
+            let sec = segundos % 60;
+            timerDisplay.innerText = ${min}:${sec < 10 ? '0'+sec : sec};
+            if (segundos <= 0 && timerInterval) {
                 clearInterval(timerInterval);
                 timerInterval = null;
-                mostrarDebug("⏰ Tempo esgotado! Finalize sua criação.");
+                statusDiv.innerText = "⏰ Tempo esgotado!";
             }
         }
-
-        function iniciarTimer(duracao = 90) {
+        
+        function iniciarTimer() {
             if (timerInterval) clearInterval(timerInterval);
-            segundosRestantes = duracao;
-            atualizarTimerDisplay();
+            segundos = 90;
+            atualizarTimerUI();
             timerInterval = setInterval(() => {
-                if (segundosRestantes > 0) {
-                    segundosRestantes--;
-                    atualizarTimerDisplay();
+                if (segundos > 0) {
+                    segundos--;
+                    atualizarTimerUI();
                 } else {
                     clearInterval(timerInterval);
                     timerInterval = null;
                 }
             }, 1000);
-            mostrarDebug(`Timer iniciado: ${Math.floor(duracao/60)}:${duracao%60}`);
+            statusDiv.innerText = "⏳ Timer rodando (1:30)";
         }
-
+        
         function resetTimer() {
             if (timerInterval) clearInterval(timerInterval);
-            segundosRestantes = 90;
-            atualizarTimerDisplay();
+            segundos = 90;
+            atualizarTimerUI();
             timerInterval = null;
-            mostrarDebug("Timer resetado para 1:30");
+            statusDiv.innerText = "Timer resetado para 1:30";
         }
-
+        
         // Sorteio
-        function sortearElemento(arr) {
-            if (!arr || arr.length === 0) return "Erro";
-            return arr[Math.floor(Math.random() * arr.length)];
+        function sortear() {
+            // Problema
+            const problema = problemas[Math.floor(Math.random() * problemas.length)];
+            problemaEl.innerText = problema;
+            
+            // Letra
+            const letrasKeys = Object.keys(letrasPalavras);
+            const letra = letrasKeys[Math.floor(Math.random() * letrasKeys.length)];
+            letraEl.innerText = letra;
+            palavrasEl.innerText = "📌 " + letrasPalavras[letra].join(" · ");
+            
+            // Gênero
+            const genero = generos[Math.floor(Math.random() * generos.length)];
+            generoEl.innerText = genero;
+            
+            statusDiv.innerText = 🎲 Sorteado: ${problema} | Letra ${letra} | ${genero};
         }
-
-        function sortearTudo() {
-            try {
-                const problema = sortearElemento(problemasSociais);
-                problemaEl.innerText = problema;
-                
-                const letrasKeys = Object.keys(letrasPalavras);
-                const letraSorteada = sortearElemento(letrasKeys);
-                letraEl.innerText = letraSorteada;
-                const palavras = letrasPalavras[letraSorteada];
-                palavrasEl.innerText = `📌 ${palavras.join(" · ")}`;
-                
-                const genero = sortearElemento(generosLiterarios);
-                generoEl.innerText = genero;
-                
-                mostrarDebug(`Sorteado: ${problema} | Letra ${letraSorteada} | ${genero}`);
-            } catch (erro) {
-                mostrarDebug("Erro no sorteio: " + erro.message, true);
-            }
-        }
-
+        
         function limparTexto() {
             textoArea.value = "";
-            mostrarDebug("Campo de texto limpo");
+            statusDiv.innerText = "Campo de texto limpo";
         }
-
+        
         // Pontuação
-        let pontuacaoTotal = 0;
-        function adicionarPontos(p) {
-            pontuacaoTotal += p;
-            totalPontosSpan.innerText = pontuacaoTotal;
-            mostrarDebug(`+${p} pontos! Total: ${pontuacaoTotal}`);
+        let pontos = 0;
+        function atualizarPontosUI() {
+            totalPontosSpan.innerText = pontos;
         }
+        
+        function adicionarPontos(valor) {
+            pontos += valor;
+            atualizarPontosUI();
+            statusDiv.innerText = +${valor} pontos! Total: ${pontos};
+        }
+        
         function zerarPontos() {
-            pontuacaoTotal = 0;
-            totalPontosSpan.innerText = "0";
-            mostrarDebug("Pontuação zerada");
+            pontos = 0;
+            atualizarPontosUI();
+            statusDiv.innerText = "Pontuação zerada";
         }
-
-        // Event listeners com verificação de existência
-        if (sortearBtn) sortearBtn.addEventListener("click", sortearTudo);
-        else mostrarDebug("Botão sortear não encontrado", true);
         
-        if (limparBtn) limparBtn.addEventListener("click", limparTexto);
-        if (startTimerBtn) startTimerBtn.addEventListener("click", () => iniciarTimer(90));
-        if (resetTimerBtn) resetTimerBtn.addEventListener("click", resetTimer);
-        if (zerarPontosBtn) zerarPontosBtn.addEventListener("click", zerarPontos);
+        // ----- VINCULAÇÃO DOS BOTÕES (MANUAL E SEGURA) -----
+        const btnSortear = document.getElementById("btnSortear");
+        const btnLimpar = document.getElementById("btnLimpar");
+        const btnTimerIniciar = document.getElementById("btnTimerIniciar");
+        const btnTimerReset = document.getElementById("btnTimerReset");
+        const btnMais1 = document.getElementById("btnMais1");
+        const btnMais2 = document.getElementById("btnMais2");
+        const btnMais3 = document.getElementById("btnMais3");
+        const btnZerar = document.getElementById("btnZerarPontos");
         
-        // Botões de pontuação dinâmicos
-        document.querySelectorAll(".score-btn[data-points]").forEach(btn => {
-            btn.addEventListener("click", (e) => {
-                const pts = parseInt(e.target.getAttribute("data-points"));
-                if (!isNaN(pts)) adicionarPontos(pts);
-            });
-        });
+        // Verificar se todos os botões existem
+        if (btnSortear) btnSortear.onclick = function() { sortear(); };
+        else statusDiv.innerText = "ERRO: botão Sortear não encontrado";
         
-        // Sorteio inicial
-        sortearTudo();
+        if (btnLimpar) btnLimpar.onclick = function() { limparTexto(); };
+        if (btnTimerIniciar) btnTimerIniciar.onclick = function() { iniciarTimer(); };
+        if (btnTimerReset) btnTimerReset.onclick = function() { resetTimer(); };
+        if (btnMais1) btnMais1.onclick = function() { adicionarPontos(1); };
+        if (btnMais2) btnMais2.onclick = function() { adicionarPontos(2); };
+        if (btnMais3) btnMais3.onclick = function() { adicionarPontos(3); };
+        if (btnZerar) btnZerar.onclick = function() { zerarPontos(); };
+        
+        // Inicializar com um sorteio
+        sortear();
         resetTimer();
         
-        mostrarDebug("Jogo pronto! Clique em SORTEAR a qualquer momento para novo tema.");
-    })();
+        statusDiv.innerText = "✅ Jogo carregado. Todos os botões devem funcionar no Firefox.";
+    });
 </script>
 </body>
 </html>
