@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Letras em Transformação — edição minimalista</title>
+    <title>Letras em Transformação | Jogo minimalista</title>
     <style>
         * {
             margin: 0;
@@ -12,8 +12,8 @@
         }
 
         body {
-            background: #f5f3ef;
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            background: #808080; /* Cinza claro */
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -21,212 +21,209 @@
             padding: 2rem;
         }
 
-        /* container principal */
+        /* Container principal */
         .game-container {
-            max-width: 780px;
+            max-width: 750px;
             width: 100%;
-            background: #ffffff;
+            background: #5A5A5A; /* Cinza escuro */
             border-radius: 2rem;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.02);
             padding: 2rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.3);
             transition: all 0.2s ease;
         }
 
-        /* tipografia */
+        /* Tipografia */
         h1 {
             font-size: 1.8rem;
-            font-weight: 500;
+            font-weight: 600;
             letter-spacing: -0.02em;
-            color: #1e2a2b;
+            color: #FFFFFF;
             margin-bottom: 0.25rem;
         }
 
         .sub {
+            color: #FFFFFF;
+            opacity: 0.8;
             font-size: 0.85rem;
-            color: #7b8a7d;
-            border-left: 2px solid #d4c9b2;
+            border-left: 3px solid #FFFFFF;
             padding-left: 1rem;
             margin: 0.5rem 0 1.5rem 0;
-            font-weight: 400;
+            font-style: normal;
         }
 
-        /* cards minimalistas */
+        /* Cards minimalistas */
         .card {
-            background: #fefcf8;
+            background: #FFFFFF;
             border-radius: 1.5rem;
-            padding: 1.2rem 1.5rem;
-            margin: 1rem 0;
-            border: 1px solid #ece4d7;
-            transition: box-shadow 0.1s ease;
+            padding: 1.2rem;
+            margin: 1.2rem 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.1s ease;
         }
 
         .problema {
-            border-left: 4px solid #c75c3c;
-            background: #fffaf7;
+            border-left: 6px solid #808080;
         }
+
         .letra {
-            border-left: 4px solid #4a7c6b;
-            background: #f9fdfb;
+            border-left: 6px solid #5A5A5A;
         }
+
         .genero {
-            border-left: 4px solid #d6b575;
-            background: #fffcf5;
+            border-left: 6px solid #808080;
         }
 
         .badge {
             font-size: 0.7rem;
-            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.04em;
-            color: #8f9e8b;
-            margin-bottom: 0.5rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #5A5A5A;
+            margin-bottom: 0.4rem;
         }
 
         h2 {
-            font-size: 1.6rem;
-            font-weight: 480;
-            letter-spacing: -0.01em;
-            color: #1e2a2b;
-            margin-bottom: 0.3rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1e1e1e;
+            margin-bottom: 0.25rem;
         }
 
         .palavras {
-            font-family: 'SF Mono', 'Fira Code', monospace;
-            background: #f2efe8;
+            background: #f0f0f0;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
             padding: 0.3rem 0.8rem;
             border-radius: 2rem;
             display: inline-block;
-            font-size: 0.8rem;
-            color: #4a5b4e;
-            margin-top: 0.5rem;
+            margin-top: 0.6rem;
+            color: #2c2c2c;
         }
 
-        /* botões modernos */
+        /* Botões minimalistas */
         button {
-            background: #ece4d7;
+            background: #808080;
             border: none;
             padding: 0.6rem 1.4rem;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 500;
-            border-radius: 2rem;
-            color: #2a3e34;
+            border-radius: 3rem;
+            color: #FFFFFF;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: 0.2s;
             margin-right: 0.6rem;
             margin-top: 0.5rem;
-            font-family: inherit;
+            text-transform: capitalize;
         }
 
         button:hover {
-            background: #ddd0be;
+            background: #5A5A5A;
             transform: translateY(-1px);
         }
 
-        .btn-primary {
-            background: #4a7c6b;
-            color: white;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-        }
-        .btn-primary:hover {
-            background: #3d6658;
+        .btn-regras {
+            background: #FFFFFF;
+            color: #5A5A5A;
+            border: 1px solid #e0e0e0;
         }
 
+        .btn-regras:hover {
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        /* Timer */
         .timer-area {
-            background: #f2efe8;
-            border-radius: 2rem;
+            background: #FFFFFF10;
+            backdrop-filter: blur(2px);
+            background: #FFFFFF;
+            color: #5A5A5A;
             padding: 0.8rem;
+            border-radius: 3rem;
             text-align: center;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 1.3rem;
-            color: #2a3e34;
             margin: 1.2rem 0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
         }
 
         textarea {
             width: 100%;
             border-radius: 1.5rem;
-            border: 1px solid #e2d8cd;
-            background: #ffffff;
-            padding: 0.9rem 1rem;
+            border: 1px solid #ddd;
+            padding: 0.8rem 1rem;
             font-size: 0.9rem;
             font-family: inherit;
+            background: #FFFFFF;
             resize: vertical;
             margin: 0.8rem 0;
-            transition: border 0.1s;
         }
+
         textarea:focus {
             outline: none;
-            border-color: #b9aa92;
+            border-color: #808080;
         }
 
+        /* Pontuação */
         .score-area {
             display: flex;
-            flex-wrap: wrap;
-            align-items: center;
             gap: 0.8rem;
+            flex-wrap: wrap;
             justify-content: space-between;
-            background: #faf8f4;
-            padding: 0.8rem 1rem;
-            border-radius: 2rem;
-            margin: 1rem 0 0.5rem;
+            align-items: center;
+            margin: 1rem 0;
+            background: #FFFFFF10;
+            padding: 0.5rem 0;
         }
 
-        .score-buttons {
-            display: flex;
-            gap: 0.5rem;
-        }
-        .score-buttons button {
-            background: #e7dfd3;
-            padding: 0.4rem 1rem;
+        .score-btn {
+            background: #FFFFFF;
+            color: #5A5A5A;
+            border: 1px solid #ddd;
+            padding: 0.3rem 1rem;
             font-size: 0.8rem;
         }
-        .score-buttons button:hover {
-            background: #d6cbbc;
-        }
 
-        .total-points {
-            font-weight: 600;
-            background: #ffffff;
-            padding: 0.3rem 0.9rem;
-            border-radius: 2rem;
-            font-size: 0.9rem;
-        }
-
-        .debug {
-            background: #f6f3ee;
-            padding: 0.6rem;
-            border-radius: 1.2rem;
-            font-size: 0.7rem;
-            font-family: monospace;
-            text-align: center;
-            color: #6c7a6b;
-            margin-top: 1rem;
+        .score-btn:hover {
+            background: #e0e0e0;
         }
 
         footer {
-            text-align: center;
             font-size: 0.7rem;
-            color: #9bae9a;
-            border-top: 1px solid #eae2d6;
-            padding-top: 1.2rem;
-            margin-top: 1.5rem;
+            text-align: center;
+            margin-top: 1.8rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            color: #FFFFFF;
         }
 
-        /* resumo rápido */
+        .debug {
+            background: #FFFFFF20;
+            padding: 0.6rem;
+            border-radius: 1.5rem;
+            font-size: 0.7rem;
+            text-align: center;
+            color: #FFFFFF;
+            margin-top: 1rem;
+            font-family: monospace;
+        }
+
+        /* Resumo das regras */
         .rules-summary {
-            background: #fefcf8;
+            background: #FFFFFF;
             border-radius: 1.2rem;
             padding: 0.8rem 1rem;
+            margin: 1rem 0;
             font-size: 0.75rem;
-            border: 1px solid #ece4d7;
-            margin: 0.8rem 0;
-            line-height: 1.4;
-        }
-        .rules-summary strong {
-            color: #4a7c6b;
+            border-left: 4px solid #808080;
+            color: #2c2c2c;
         }
 
-        /* modal minimalista */
+        .rules-summary strong {
+            color: #5A5A5A;
+        }
+
+        /* Modal minimalista */
         .modal {
             display: none;
             position: fixed;
@@ -235,124 +232,144 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(30, 42, 43, 0.6);
-            backdrop-filter: blur(2px);
+            background-color: rgba(0, 0, 0, 0.6);
             justify-content: center;
             align-items: center;
         }
+
         .modal-content {
-            background: #ffffff;
+            background: #FFFFFF;
             border-radius: 2rem;
-            max-width: 480px;
+            padding: 1.5rem;
             width: 90%;
+            max-width: 500px;
             max-height: 80vh;
             overflow-y: auto;
-            padding: 1.6rem;
-            box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
             font-size: 0.85rem;
-            line-height: 1.45;
-            border: 1px solid #eae2d6;
+            line-height: 1.4;
+            color: #1e1e1e;
         }
+
         .modal-content h2 {
             font-size: 1.3rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
+            color: #5A5A5A;
         }
+
+        .modal-content ul {
+            padding-left: 1.2rem;
+            margin: 0.5rem 0;
+        }
+
         .close-modal {
+            color: #888;
             float: right;
-            font-size: 1.5rem;
-            font-weight: 300;
+            font-size: 1.6rem;
+            font-weight: bold;
             cursor: pointer;
-            color: #b1a68f;
         }
-        .close-modal:hover { color: #4a3b2c; }
-        .btn-regras {
-            background: #e1d6c8;
-            color: #2e473f;
-            margin-bottom: 0.2rem;
+
+        .close-modal:hover {
+            color: #333;
+        }
+
+        /* Primeira letra maiúscula em textos e botões */
+        button, .badge, .sub, .rules-summary, .modal-content p, .modal-content li, footer, .debug {
+            text-transform: lowercase;
+        }
+        button::first-letter, .badge::first-letter, .sub::first-letter, .rules-summary p::first-letter, 
+        .modal-content p::first-letter, .modal-content li::first-letter, footer::first-letter, .debug::first-letter {
+            text-transform: uppercase;
+        }
+        /* Para títulos e cabeçalhos já estão ok */
+        h1, h2, .badge {
+            text-transform: none;
+        }
+        h1::first-letter, h2::first-letter {
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
-<div class="game-container">
-    <h1>📖 Letras em Transformação</h1>
-    <div class="sub">literatura, sorteio e consciência social — edição minimalista</div>
 
-    <button class="btn-regras" onclick="abrirModalRegras()">📜 regras & pontuação</button>
+<div class="game-container">
+    <h1>📖 Letras em transformação</h1>
+    <div class="sub">Jogo de criação literária e consciência social</div>
+
+    <button class="btn-regras" onclick="abrirModalRegras()">📜 Regras e pontuação</button>
 
     <div class="rules-summary">
-        <strong>⚡ resumo</strong> – sorteie problema + letra (escolha UMA palavra) + gênero. crie um texto curto (timer opcional 1:30). debate livre. pontuação: +1 (pertinente), +2 (criativo), +3 (impactante).
+        <strong>⚡ Resumo rápido:</strong> Sorteie problema + letra (com 3 palavras) + gênero. Escolha uma palavra. Crie texto (até 1:30). Debata livremente. Pontue de 1 a 3.<br>
+        <strong>⭐ Pontuação:</strong> +1 (pertinente), +2 (criativo), +3 (impactante).
     </div>
 
     <div class="card problema">
-        <div class="badge">problema social</div>
+        <div class="badge">🚨 Problema social</div>
         <h2 id="problemaTexto">---</h2>
     </div>
 
     <div class="card letra">
-        <div class="badge">letra + palavras (escolha uma)</div>
+        <div class="badge">🔤 Letra + palavras (escolha uma)</div>
         <h2 id="letraTexto">---</h2>
         <div class="palavras" id="palavrasAssociadas">---</div>
     </div>
 
     <div class="card genero">
-        <div class="badge">gênero literário</div>
+        <div class="badge">✍️ Gênero literário</div>
         <h2 id="generoTexto">---</h2>
     </div>
 
     <div class="timer-area">
         ⏱️ <span id="timerDisplay">1:30</span>
-        <div style="margin-top: 8px;">
-            <button onclick="iniciarTimer()">▶ iniciar timer</button>
-            <button onclick="resetTimer()">↻ resetar</button>
+        <div>
+            <button onclick="iniciarTimer()">▶ Iniciar timer</button>
+            <button onclick="resetTimer()">🔄 Resetar timer</button>
         </div>
     </div>
 
     <div>
-        <button class="btn-primary" onclick="sortearTudo()">🎲 sortear combinação</button>
-        <button onclick="limparTexto()">🧹 limpar texto</button>
+        <button onclick="sortearTudo()">🎲 Sortear combinação</button>
+        <button onclick="limparTexto()">🧹 Limpar texto</button>
     </div>
 
-    <textarea id="meuTexto" rows="2" placeholder="escreva aqui seu poema, miniconto ou cena… use a palavra escolhida e o gênero sorteado"></textarea>
+    <textarea id="meuTexto" rows="2" placeholder="Escreva seu texto (use uma palavra da letra e o gênero sorteado)"></textarea>
 
     <div class="score-area">
-        <span>⭐ pontuação</span>
-        <div class="score-buttons">
-            <button onclick="adicionarPontos(1)">+1</button>
-            <button onclick="adicionarPontos(2)">+2</button>
-            <button onclick="adicionarPontos(3)">+3</button>
-        </div>
-        <span class="total-points">total: <strong id="totalPontos">0</strong></span>
-        <button onclick="zerarPontos()">zerar</button>
+        <span>⭐ Pontos:</span>
+        <button class="score-btn" onclick="adicionarPontos(1)">+1</button>
+        <button class="score-btn" onclick="adicionarPontos(2)">+2</button>
+        <button class="score-btn" onclick="adicionarPontos(3)">+3</button>
+        <span>Total: <strong id="totalPontos">0</strong></span>
+        <button class="score-btn" onclick="zerarPontos()">Zerar</button>
     </div>
+    <div id="debugMsg" class="debug">✅ Jogo carregado. Clique em sortear.</div>
 
-    <div id="debugMsg" class="debug">✨ jogo pronto — apenas letras com palavras significativas</div>
-
-    <footer>desenvolvido por <strong>Sahmara Carolina</strong> · jogo de educação não formal</footer>
+    <footer>✨ Jogo desenvolvido por <strong>Sahmara Carolina</strong> ✨<br>Educação não formal – literatura e transformação social</footer>
 </div>
 
-<!-- modal regras -->
+<!-- Modal regras minimalista -->
 <div id="modalRegras" class="modal">
     <div class="modal-content">
         <span class="close-modal" onclick="fecharModalRegras()">&times;</span>
-        <h2>📜 como jogar</h2>
-        <p><strong>objetivo:</strong> criar pequenos textos literários (poema, miniconto, cena) relacionando problema social + palavra sorteada + gênero.</p>
-        <p><strong>jogadores:</strong> 2 a 6 (ou solo/cooperativo).</p>
+        <h2>📜 Regras do jogo</h2>
+        <p><strong>Objetivo:</strong> Criar textos literários a partir de problema social, letra (com palavra associada) e gênero.</p>
+        <p><strong>Jogadores:</strong> 2 a 6 (ou solo/cooperativo).</p>
         <ul>
-            <li><strong>1. sortear</strong> – clique em "sortear combinação". aparece problema + letra (com 3 palavras) + gênero (terror, comédia, romance, aventura, suspense, drama, ficção científica, fantasia).</li>
-            <li><strong>2. escolher uma palavra</strong> – das três sugeridas, use apenas UMA no seu texto.</li>
-            <li><strong>3. criar (1:30)</strong> – timer opcional, texto curto (máx 4 linhas / 30s fala).</li>
-            <li><strong>4. debate</strong> – sem tempo fixo, converse sobre o problema social e a criação.</li>
-            <li><strong>5. pontuar</strong> – outros jogadores atribuem: +1 (pertinente), +2 (criativo), +3 (impactante).</li>
-            <li><strong>6. próximo turno</strong> – novo sorteio, novo texto.</li>
+            <li><strong>1. Sortear</strong> – clique em "Sortear combinação". Aparecerá: problema social + letra (com 3 palavras) + gênero (terror, comédia, romance, aventura, suspense, drama, ficção científica, fantasia).</li>
+            <li><strong>2. Escolher uma palavra</strong> – das 3 sugeridas para a letra, o jogador escolhe apenas uma (não precisa usar todas).</li>
+            <li><strong>3. Criar (1:30)</strong> – use o timer opcional. Texto curto (poema, miniconto, cena).</li>
+            <li><strong>4. Debate</strong> – sem tempo limite, o grupo discute a relação com o problema social.</li>
+            <li><strong>5. Pontuar</strong> – outros jogadores dão +1 (pertinente), +2 (criativo) ou +3 (impactante).</li>
+            <li><strong>6. Próximo</strong> – novo sorteio, nova rodada.</li>
         </ul>
-        <p><strong>fim do jogo:</strong> após 4-6 rodadas, soma‑se os pontos. vence quem tiver maior pontuação. no modo cooperativo, o grupo monta um “pequeno livro de ativismo literário”.</p>
-        <p style="text-align:center; margin-top:1rem;"><button onclick="fecharModalRegras()" style="background:#4a7c6b; color:white; padding:0.5rem 1.5rem;">vamos jogar</button></p>
+        <p><strong>Fim do jogo:</strong> Após 4-6 rodadas, soma-se pontos. Quem tiver mais pontos vence. Modo cooperativo: criar um "livro de ativismo literário".</p>
+        <p style="text-align:center; margin-top:1rem;"><button onclick="fecharModalRegras()" style="background:#5A5A5A; color:white;">Entendi, vamos jogar!</button></p>
     </div>
 </div>
 
 <script>
-    // ==================== DADOS ====================
-    // apenas letras com palavras significativas
+    // ==================== DADOS OTIMIZADOS ====================
     const letrasPalavras = {
         "A": ["amor", "acolhimento", "agir"],
         "C": ["coragem", "comunidade", "crítica"],
@@ -378,9 +395,9 @@
         "Trabalho infantil", "Capacitismo", "Intolerância religiosa"
     ];
 
-    const generos = ["Terror", "Comédia", "Romance", "Aventura", "Suspense", "Drama", "Ficção Científica", "Fantasia"];
+    const generos = ["Terror", "Comédia", "Romance", "Aventura", "Suspense", "Drama", "Ficção científica", "Fantasia"];
 
-    // DOM elements
+    // Elementos
     let problemaEl, letraEl, palavrasEl, generoEl, textoArea, totalPontosSpan, debugSpan, timerDisplaySpan;
     let timerInterval = null;
     let segundosRestantes = 90;
@@ -393,37 +410,30 @@
 
     function sortearTudo() {
         try {
-            const problema = problemas[Math.floor(Math.random() * problemas.length)];
-            problemaEl.innerText = problema;
-
+            problemaEl.innerText = problemas[Math.floor(Math.random() * problemas.length)];
             const letrasDisponiveis = Object.keys(letrasPalavras);
             const letra = letrasDisponiveis[Math.floor(Math.random() * letrasDisponiveis.length)];
             letraEl.innerText = letra;
             const palavras = letrasPalavras[letra];
             palavrasEl.innerText = "📌 " + palavras.join(" · ");
-
-            const genero = generos[Math.floor(Math.random() * generos.length)];
-            generoEl.innerText = genero;
-
-            atualizarDebug(`🎲 sorteado: ${problema} | letra ${letra} | palavras: ${palavras.join(", ")} | gênero: ${genero}`);
-        } catch (erro) {
-            atualizarDebug("erro no sorteio: " + erro.message);
-        }
+            generoEl.innerText = generos[Math.floor(Math.random() * generos.length)];
+            atualizarDebug(`Sorteado: ${problemaEl.innerText} | Letra ${letra} | Palavras: ${palavras.join(", ")}`);
+        } catch(e) { atualizarDebug("Erro no sorteio: " + e.message); }
     }
 
-    function limparTexto() { textoArea.value = ""; atualizarDebug("✎ texto limpo"); }
+    function limparTexto() { textoArea.value = ""; atualizarDebug("Campo de texto limpo."); }
 
     function atualizarTimerUI() {
-        if (!timerDisplaySpan) return;
         let min = Math.floor(segundosRestantes / 60);
         let seg = segundosRestantes % 60;
-        timerDisplaySpan.innerText = `${min}:${seg < 10 ? '0' + seg : seg}`;
+        timerDisplaySpan.innerText = `${min}:${seg < 10 ? '0'+seg : seg}`;
         if (segundosRestantes <= 0 && timerInterval) {
             clearInterval(timerInterval);
             timerInterval = null;
-            atualizarDebug("⏰ tempo esgotado");
+            atualizarDebug("Tempo esgotado!");
         }
     }
+
     function iniciarTimer() {
         if (timerInterval) clearInterval(timerInterval);
         segundosRestantes = 90;
@@ -437,26 +447,27 @@
                 timerInterval = null;
             }
         }, 1000);
-        atualizarDebug("⏳ timer iniciado (1:30)");
+        atualizarDebug("Timer iniciado (1:30)");
     }
+
     function resetTimer() {
         if (timerInterval) clearInterval(timerInterval);
         segundosRestantes = 90;
         atualizarTimerUI();
         timerInterval = null;
-        atualizarDebug("timer resetado");
+        atualizarDebug("Timer resetado");
     }
 
     function adicionarPontos(valor) {
-        const pontosValidos = Math.max(0, valor);
-        pontuacaoTotal += pontosValidos;
+        pontuacaoTotal += Math.max(0, valor);
         totalPontosSpan.innerText = pontuacaoTotal;
-        atualizarDebug(`⭐ +${pontosValidos} | total: ${pontuacaoTotal}`);
+        atualizarDebug(`+${valor} pontos | Total: ${pontuacaoTotal}`);
     }
+
     function zerarPontos() {
         pontuacaoTotal = 0;
         totalPontosSpan.innerText = "0";
-        atualizarDebug("pontuação zerada");
+        atualizarDebug("Pontuação zerada");
     }
 
     function abrirModalRegras() { document.getElementById("modalRegras").style.display = "flex"; }
@@ -472,13 +483,12 @@
         timerDisplaySpan = document.getElementById("timerDisplay");
         debugSpan = document.getElementById("debugMsg");
 
-        if (!problemaEl) { console.error("erro crítico"); return; }
+        if (!problemaEl) return;
         sortearTudo();
         resetTimer();
-        atualizarDebug("✅ interface moderna carregada — escolha uma palavra e crie!");
+        atualizarDebug("Jogo pronto! Escolha uma palavra da letra.");
     }
 
-    // EXPOR FUNÇÕES GLOBAIS
     window.sortearTudo = sortearTudo;
     window.limparTexto = limparTexto;
     window.iniciarTimer = iniciarTimer;
