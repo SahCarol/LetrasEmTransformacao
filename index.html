@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Letras em Transformação - Alfabeto Completo</title>
+    <title>Letras em Transformação - Apenas letras com palavras</title>
     <style>
         * { box-sizing: border-box; font-family: system-ui, 'Segoe UI', sans-serif; }
         body { background: #1e2b2c; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; margin: 0; }
@@ -63,13 +63,13 @@
 </head>
 <body>
 <div class="game-container">
-    <h1>📖 Letras em Transformação <span style="font-size:0.7rem;">🎭 Alfabeto completo!</span></h1>
-    <div class="sub">Todas as letras têm palavras exclusivas. Divirta-se!</div>
+    <h1>📖 Letras em Transformação <span style="font-size:0.7rem;">🎭 apenas letras com palavras</span></h1>
+    <div class="sub">Clique nos botões – jogo funcional no Firefox e GitHub Pages.</div>
 
     <button class="btn-regras" onclick="abrirModalRegras()">📜 Regras e Pontuação</button>
 
     <div class="rules-summary">
-        <strong>⚡ Resumo rápido:</strong> Sorteie problema + letra + gênero. Escolha UMA palavra da letra. Crie texto (até 1:30). Debata livremente. Pontue de 1 a 3.<br>
+        <strong>⚡ Resumo rápido:</strong> Sorteie problema + letra (com 3 palavras) + gênero. Escolha UMA palavra. Crie texto (até 1:30). Debata livremente. Pontue de 1 a 3.<br>
         <strong>⭐ Pontuação:</strong> +1 (pertinente), +2 (criativo), +3 (impactante).
     </div>
 
@@ -117,6 +117,7 @@
     <footer>✨ Jogo desenvolvido por <strong>Sahmara Carolina</strong> ✨<br>🧠 Educação não formal – literatura e transformação social</footer>
 </div>
 
+<!-- Modal de regras compacto -->
 <div id="modalRegras" class="modal">
     <div class="modal-content">
         <span class="close-modal" onclick="fecharModalRegras()">&times;</span>
@@ -124,8 +125,8 @@
         <p><strong>Objetivo:</strong> Criar textos literários a partir de problema social, letra (com palavra associada) e gênero.</p>
         <p><strong>Jogadores:</strong> 2 a 6 (ou solo/cooperativo).</p>
         <ul>
-            <li><strong>1. Sortear</strong> – clique em "SORTEAR COMBINAÇÃO".</li>
-            <li><strong>2. Escolher uma palavra</strong> – das 3 sugeridas para a letra, o jogador escolhe apenas UMA.</li>
+            <li><strong>1. Sortear</strong> – clique em "SORTEAR COMBINAÇÃO". Aparecerá: Problema Social + Letra (com 3 palavras) + Gênero (Terror, Comédia, Romance, Aventura, Suspense, Drama, Ficção Científica, Fantasia).</li>
+            <li><strong>2. Escolher uma palavra</strong> – das 3 sugeridas para a letra, o jogador escolhe apenas UMA (não precisa usar todas).</li>
             <li><strong>3. Criar (1:30)</strong> – use o timer opcional. Texto curto (poema, miniconto, cena).</li>
             <li><strong>4. Debate</strong> – sem tempo limite, o grupo discute a relação com o problema social.</li>
             <li><strong>5. Pontuar</strong> – outros jogadores dão +1 (pertinente), +2 (criativo) ou +3 (impactante).</li>
@@ -137,44 +138,27 @@
 </div>
 
 <script>
-    // ==================== BANCO DE DADOS COM TODAS AS LETRAS ====================
+    // ==================== BANCO DE DADOS ====================
+    // Apenas letras que possuem palavras-chave definidas (sem letras "vazias")
     const letrasPalavras = {
         "A": ["amor", "acolhimento", "agir"],
-        "B": ["basta", "bem-viver", "batalha"],
         "C": ["coragem", "comunidade", "crítica"],
         "D": ["dignidade", "denúncia", "diálogo"],
         "E": ["empatia", "esperança", "educação"],
         "F": ["força", "futuro", "fratura"],
         "G": ["grito", "generosidade", "gente"],
-        "H": ["honestidade", "humanidade", "horizonte"],
         "I": ["inclusão", "inconformismo", "iniciativa"],
-        "J": ["justiça", "jornada", "jovem"],
-        "K": ["kairós", "karma social", "knowledge"],
         "L": ["liberdade", "luta", "literatura"],
         "M": ["memória", "mudança", "mobilização"],
-        "N": ["narrativa", "não-violência", "nós"],
         "O": ["ousadia", "olhar crítico", "organização"],
         "P": ["poesia", "periferia", "pacto"],
-        "Q": ["quebra de silêncio", "querer coletivo", "quimera"],
         "R": ["resistência", "rede", "respeito"],
         "S": ["solidariedade", "sistema", "silêncio"],
         "T": ["ternura", "terra", "testemunho"],
-        "U": ["utopia", "unidade", "urgência"],
-        "V": ["voz", "vida digna", "vulnerabilidade"],
-        "W": ["wanderlust", "woke", "will power"],
-        "X": ["xenofilia", "xerografia social", "xadrez"],
-        "Y": ["yoga social", "youth", "yarn"],
-        "Z": ["zelo", "zona de conflito", "zumbido"]
+        "V": ["voz", "vida digna", "vulnerabilidade"]
     };
     
-    // Garantia de que todas as 26 letras estão presentes (caso alguma falte)
-    const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-    for (let letra of alfabeto) {
-        if (!letrasPalavras[letra]) {
-            letrasPalavras[letra] = ["transformação", "consciência", "ação"];
-        }
-    }
-    
+    // Lista de problemas sociais
     const problemas = [
         "Racismo estrutural", "Fome e insegurança alimentar", "Desemprego",
         "Violência contra a mulher", "LGBTQIA+fobia", "Desinformação",
@@ -182,9 +166,10 @@
         "Trabalho infantil", "Capacitismo", "Intolerância religiosa"
     ];
     
+    // Gêneros literários
     const generos = ["Terror", "Comédia", "Romance", "Aventura", "Suspense", "Drama", "Ficção Científica", "Fantasia"];
     
-    // Elementos
+    // Elementos DOM
     let problemaEl, letraEl, palavrasEl, generoEl, textoArea, totalPontosSpan, debugSpan, timerDisplaySpan;
     let timerInterval = null;
     let segundosRestantes = 90;
@@ -197,38 +182,82 @@
     
     function sortearTudo() {
         try {
-            problemaEl.innerText = problemas[Math.floor(Math.random() * problemas.length)];
-            const letrasKeys = Object.keys(letrasPalavras);
-            const letra = letrasKeys[Math.floor(Math.random() * letrasKeys.length)];
-            letraEl.innerText = letra;
-            const palavras = letrasPalavras[letra];
+            // Sorteia problema
+            const problema = problemas[Math.floor(Math.random() * problemas.length)];
+            problemaEl.innerText = problema;
+            
+            // Sorteia letra APENAS entre as que têm palavras definidas
+            const letrasDisponiveis = Object.keys(letrasPalavras);
+            const letraSorteada = letrasDisponiveis[Math.floor(Math.random() * letrasDisponiveis.length)];
+            letraEl.innerText = letraSorteada;
+            const palavras = letrasPalavras[letraSorteada];
             palavrasEl.innerText = "📌 " + palavras.join(" · ");
-            generoEl.innerText = generos[Math.floor(Math.random() * generos.length)];
-            atualizarDebug(`🎲 Sorteado | Letra ${letra} | Palavras: ${palavras.join(", ")}`);
-        } catch(e) { atualizarDebug("ERRO: " + e.message); }
+            
+            // Sorteia gênero
+            const genero = generos[Math.floor(Math.random() * generos.length)];
+            generoEl.innerText = genero;
+            
+            atualizarDebug(`🎲 Sorteado: ${problema} | Letra ${letraSorteada} | Palavras: ${palavras.join(", ")} | Gênero: ${genero}`);
+        } catch (erro) {
+            atualizarDebug("ERRO no sorteio: " + erro.message);
+        }
     }
     
-    function limparTexto() { textoArea.value = ""; atualizarDebug("📝 Texto limpo."); }
+    function limparTexto() { 
+        textoArea.value = ""; 
+        atualizarDebug("📝 Campo de texto limpo."); 
+    }
     
     function atualizarTimerUI() {
         if (!timerDisplaySpan) return;
-        let min = Math.floor(segundosRestantes/60);
-        let seg = segundosRestantes%60;
-        timerDisplaySpan.innerText = `${min}:${seg<10?'0'+seg:seg}`;
-        if (segundosRestantes<=0 && timerInterval) { clearInterval(timerInterval); timerInterval=null; atualizarDebug("⏰ Tempo esgotado!"); }
+        let min = Math.floor(segundosRestantes / 60);
+        let seg = segundosRestantes % 60;
+        timerDisplaySpan.innerText = `${min}:${seg < 10 ? '0' + seg : seg}`;
+        if (segundosRestantes <= 0 && timerInterval) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            atualizarDebug("⏰ Tempo esgotado!");
+        }
     }
+    
     function iniciarTimer() {
         if (timerInterval) clearInterval(timerInterval);
         segundosRestantes = 90;
         atualizarTimerUI();
-        timerInterval = setInterval(() => { if(segundosRestantes>0) { segundosRestantes--; atualizarTimerUI(); } else { clearInterval(timerInterval); timerInterval=null; } }, 1000);
-        atualizarDebug("⏳ Timer 1:30 iniciado");
+        timerInterval = setInterval(() => {
+            if (segundosRestantes > 0) {
+                segundosRestantes--;
+                atualizarTimerUI();
+            } else {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }, 1000);
+        atualizarDebug("⏳ Timer iniciado (1:30)");
     }
-    function resetTimer() { if(timerInterval) clearInterval(timerInterval); segundosRestantes=90; atualizarTimerUI(); timerInterval=null; atualizarDebug("Timer resetado"); }
     
-    function adicionarPontos(v) { pontuacaoTotal += Math.max(0,v); totalPontosSpan.innerText = pontuacaoTotal; atualizarDebug(`⭐ +${v} pontos | Total: ${pontuacaoTotal}`); }
-    function zerarPontos() { pontuacaoTotal = 0; totalPontosSpan.innerText = "0"; atualizarDebug("Pontos zerados"); }
+    function resetTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        segundosRestantes = 90;
+        atualizarTimerUI();
+        timerInterval = null;
+        atualizarDebug("🔄 Timer resetado para 1:30");
+    }
     
+    function adicionarPontos(valor) {
+        let pontosValidos = Math.max(0, valor);
+        pontuacaoTotal += pontosValidos;
+        totalPontosSpan.innerText = pontuacaoTotal;
+        atualizarDebug(`⭐ +${pontosValidos} pontos! Total: ${pontuacaoTotal}`);
+    }
+    
+    function zerarPontos() {
+        pontuacaoTotal = 0;
+        totalPontosSpan.innerText = "0";
+        atualizarDebug("Pontuação zerada.");
+    }
+    
+    // Modal
     function abrirModalRegras() { document.getElementById("modalRegras").style.display = "flex"; }
     function fecharModalRegras() { document.getElementById("modalRegras").style.display = "none"; }
     
@@ -241,12 +270,17 @@
         totalPontosSpan = document.getElementById("totalPontos");
         timerDisplaySpan = document.getElementById("timerDisplay");
         debugSpan = document.getElementById("debugMsg");
-        if(!problemaEl) { console.error("Erro"); return; }
+        
+        if (!problemaEl) {
+            console.error("Elementos não encontrados!");
+            return;
+        }
         sortearTudo();
         resetTimer();
-        atualizarDebug("✅ Pronto! Todas as letras têm palavras exclusivas.");
+        atualizarDebug("✅ Jogo pronto! Apenas letras com palavras definidas.");
     }
     
+    // Expor funções globalmente
     window.sortearTudo = sortearTudo;
     window.limparTexto = limparTexto;
     window.iniciarTimer = iniciarTimer;
@@ -256,8 +290,11 @@
     window.abrirModalRegras = abrirModalRegras;
     window.fecharModalRegras = fecharModalRegras;
     
-    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", inicializarJogo);
-    else inicializarJogo();
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", inicializarJogo);
+    } else {
+        inicializarJogo();
+    }
 </script>
 </body>
 </html>
