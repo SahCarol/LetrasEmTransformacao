@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Letras em Transformação - Gêneros: Terror, Comédia, Romance...</title>
+    <title>Letras em Transformação - Regras e Pontuação</title>
     <style>
         * { box-sizing: border-box; font-family: system-ui, 'Segoe UI', sans-serif; }
         body { background: #1e2b2c; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; margin: 0; }
@@ -25,12 +25,84 @@
         .score-btn { background: #e3b23c; color: #2d3e3f; padding: 6px 12px; font-size: 0.8rem; }
         footer { font-size: 0.7rem; text-align: center; margin-top: 28px; color: #6f7e7a; }
         .debug { background: #ffecb3; padding: 10px; border-radius: 16px; margin-top: 15px; font-family: monospace; font-size: 0.8rem; text-align: center; }
+        
+        /* Estilos do modal de regras */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fef7e6;
+            margin: auto;
+            padding: 20px;
+            border-radius: 48px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            position: relative;
+            animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .modal-content h2 {
+            margin-top: 0;
+            color: #2d3e3f;
+        }
+        .modal-content ul, .modal-content p {
+            text-align: left;
+            line-height: 1.4;
+        }
+        .close-modal {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-modal:hover {
+            color: black;
+        }
+        .btn-regras {
+            background: #e3b23c;
+            color: #2d3e3f;
+            margin-bottom: 10px;
+        }
+        .rules-summary {
+            background: #e9f0e6;
+            border-radius: 24px;
+            padding: 10px 15px;
+            margin: 15px 0;
+            font-size: 0.85rem;
+            border-left: 5px solid #2e7d64;
+        }
+        .rules-summary strong {
+            color: #2e7d64;
+        }
     </style>
 </head>
 <body>
 <div class="game-container">
     <h1>📖 Letras em Transformação <span style="font-size:0.7rem;">🎭 Terror, Comédia, Romance...</span></h1>
     <div class="sub">Clique nos botões – jogo 100% funcional no Firefox e GitHub Pages.</div>
+
+    <!-- Botão para abrir regras completas -->
+    <button class="btn-regras" onclick="abrirModalRegras()">📜 Regras e Pontuação</button>
+
+    <!-- Resumo rápido das regras -->
+    <div class="rules-summary">
+        <strong>⚡ Resumo rápido:</strong> Sorteie um problema social + uma letra + um gênero. Crie um pequeno texto (poema, conto, cena) em até 1:30. O grupo debate e pontua de 1 a 3. Vence quem mais somar pontos!<br>
+        <strong>⭐ Pontuação:</strong> +1 (pertinente), +2 (criativo), +3 (impactante). Use os botões abaixo.
+    </div>
 
     <div class="card problema">
         <div class="badge">🚨 PROBLEMA SOCIAL</div>
@@ -75,12 +147,38 @@
     <footer>🧠 Cada rodada: sorteie, crie um texto no gênero indicado, debata sobre o problema social, pontue.</footer>
 </div>
 
+<!-- Modal de regras -->
+<div id="modalRegras" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="fecharModalRegras()">&times;</span>
+        <h2>📜 Regras do Jogo</h2>
+        <p><strong>Objetivo:</strong> Criar pequenos textos literários (poemas, minicontos, cenas) a partir de um problema social, uma letra do alfabeto e um gênero narrativo, estimulando reflexão e debate.</p>
+        <p><strong>Número de jogadores:</strong> 2 a 6 (pode ser solo ou cooperativo).</p>
+        <p><strong>Como jogar (rodada):</strong></p>
+        <ul>
+            <li>1️⃣ Clique em <strong>"SORTEAR COMBINAÇÃO"</strong> – será exibido: um Problema Social, uma Letra (com palavras associadas) e um Gênero (Terror, Comédia, Romance etc.).</li>
+            <li>2️⃣ Cada jogador, no seu turno, tem <strong>1 minuto e 30 segundos</strong> para criar um texto curto (máx. 4 linhas ou 30 segundos de fala) que relacione os três elementos.</li>
+            <li>3️⃣ Após a criação, o jogador lê em voz alta (ou mostra o texto). O grupo debate brevemente (1 minuto) sobre como a obra dialoga com o problema social.</li>
+            <li>4️⃣ <strong>Pontuação:</strong> Os demais jogadores avaliam de 1 a 3 estrelas usando os botões +1, +2, +3:
+                <ul>
+                    <li><strong>+1</strong> – o texto é pertinente ao problema.</li>
+                    <li><strong>+2</strong> – criativo e usa bem a letra e o gênero.</li>
+                    <li><strong>+3</strong> – impacto emocional/reflexivo, excelente integração.</li>
+                </ul>
+            </li>
+            <li>5️⃣ O próximo jogador sorteia uma nova combinação e repete.</li>
+        </ul>
+        <p><strong>Fim do jogo:</strong> Após 4-6 rodadas (ou quando desejarem), soma-se a pontuação. O jogador com mais pontos vence. Na versão cooperativa, o objetivo é produzir um “pequeno livro de ativismo literário” coletivo.</p>
+        <p><strong>Dica educativa:</strong> Use o debate para aprofundar o problema social – o jogo é uma ferramenta de conscientização e expressão artística, não apenas competição.</p>
+        <p style="text-align:center; margin-top:15px;"><button onclick="fecharModalRegras()" style="background:#2e7d64;">Entendi, vamos jogar!</button></p>
+    </div>
+</div>
+
 <script>
     // ============================================================
     // BANCO DE DADOS - SEM ERROS DE SINTAXE (sem vírgulas extras)
     // ============================================================
     
-    // Problemas sociais (lista simples, sem vírgula após último item)
     const problemas = [
         "Racismo estrutural",
         "Fome e insegurança alimentar",
@@ -96,7 +194,6 @@
         "Intolerância religiosa"
     ];
     
-    // Letras e palavras associadas (objeto sem vírgulas extras)
     const letrasPalavras = {
         "A": ["amor", "acolhimento", "agir"],
         "C": ["coragem", "comunidade", "crítica"],
@@ -115,7 +212,6 @@
         "V": ["voz", "vida digna", "vulnerabilidade"]
     };
     
-    // Preencher o alfabeto completo (letras que não estão no objeto acima)
     const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
     for (let i = 0; i < alfabeto.length; i++) {
         let letra = alfabeto[i];
@@ -124,7 +220,6 @@
         }
     }
     
-    // GÊNEROS CONFORME SOLICITADO: Terror, Comédia, Romance, Aventura, Suspense, Drama, Ficção Científica, Fantasia
     const generos = [
         "Terror",
         "Comédia",
@@ -140,16 +235,12 @@
     // ELEMENTOS DO DOM
     // ============================================================
     let problemaEl, letraEl, palavrasEl, generoEl, textoArea, totalPontosSpan, debugSpan, timerDisplaySpan;
-    
-    // Variáveis do timer
     let timerInterval = null;
     let segundosRestantes = 90;
-    
-    // Pontuação
     let pontuacaoTotal = 0;
     
     // ============================================================
-    // FUNÇÕES PRINCIPAIS (todas serão expostas ao window)
+    // FUNÇÕES DO JOGO
     // ============================================================
     
     function atualizarDebug(msg) {
@@ -159,12 +250,10 @@
     
     function sortearTudo() {
         try {
-            // Problema
             const indiceProblema = Math.floor(Math.random() * problemas.length);
             const problema = problemas[indiceProblema];
             problemaEl.innerText = problema;
             
-            // Letra
             const letrasKeys = Object.keys(letrasPalavras);
             const indiceLetra = Math.floor(Math.random() * letrasKeys.length);
             const letra = letrasKeys[indiceLetra];
@@ -172,7 +261,6 @@
             const palavras = letrasPalavras[letra];
             palavrasEl.innerText = "📌 " + palavras.join(" · ");
             
-            // Gênero
             const indiceGenero = Math.floor(Math.random() * generos.length);
             const genero = generos[indiceGenero];
             generoEl.innerText = genero;
@@ -188,7 +276,6 @@
         atualizarDebug("📝 Campo de texto limpo.");
     }
     
-    // Timer
     function atualizarTimerUI() {
         if (!timerDisplaySpan) return;
         let minutos = Math.floor(segundosRestantes / 60);
@@ -225,9 +312,7 @@
         atualizarDebug("🔄 Timer resetado para 1:30");
     }
     
-    // Pontuação (usando Math.max para garantir valor mínimo - só por curiosidade)
     function adicionarPontos(valor) {
-        // Exemplo de uso do Math.max: garante que o valor não seja negativo (caso alguém passe -1)
         let pontosValidos = Math.max(0, valor);
         pontuacaoTotal += pontosValidos;
         if (totalPontosSpan) totalPontosSpan.innerText = pontuacaoTotal;
@@ -240,9 +325,15 @@
         atualizarDebug("Pontuação zerada.");
     }
     
-    // Inicialização do jogo
+    // Funções do modal de regras
+    function abrirModalRegras() {
+        document.getElementById("modalRegras").style.display = "flex";
+    }
+    function fecharModalRegras() {
+        document.getElementById("modalRegras").style.display = "none";
+    }
+    
     function inicializarJogo() {
-        // Capturar elementos
         problemaEl = document.getElementById("problemaTexto");
         letraEl = document.getElementById("letraTexto");
         palavrasEl = document.getElementById("palavrasAssociadas");
@@ -263,7 +354,7 @@
         atualizarDebug("✅ Jogo inicializado com gêneros: Terror, Comédia, Romance, etc.");
     }
     
-    // Expor funções globalmente (para os onclick no HTML)
+    // Expor funções globais
     window.sortearTudo = sortearTudo;
     window.limparTexto = limparTexto;
     window.iniciarTimer = iniciarTimer;
@@ -271,8 +362,9 @@
     window.adicionarPontos = adicionarPontos;
     window.zerarPontos = zerarPontos;
     window.inicializarJogo = inicializarJogo;
+    window.abrirModalRegras = abrirModalRegras;
+    window.fecharModalRegras = fecharModalRegras;
     
-    // Iniciar quando o DOM estiver pronto
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", inicializarJogo);
     } else {
