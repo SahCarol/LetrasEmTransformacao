@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Letras em Transformação - Versão Super Funcional</title>
+    <title>Letras em Transformação - Gêneros: Terror, Comédia, Romance...</title>
     <style>
         * { box-sizing: border-box; font-family: system-ui, 'Segoe UI', sans-serif; }
         body { background: #1e2b2c; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; margin: 0; }
@@ -27,10 +27,10 @@
         .debug { background: #ffecb3; padding: 10px; border-radius: 16px; margin-top: 15px; font-family: monospace; font-size: 0.8rem; text-align: center; }
     </style>
 </head>
-<body onload="inicializarJogo()">
+<body>
 <div class="game-container">
-    <h1>📖 Letras em Transformação <span style="font-size:0.7rem;">✅ onclick direto</span></h1>
-    <div class="sub">Clique nos botões – todos devem funcionar. Teste no Firefox!</div>
+    <h1>📖 Letras em Transformação <span style="font-size:0.7rem;">🎭 Terror, Comédia, Romance...</span></h1>
+    <div class="sub">Clique nos botões – jogo 100% funcional no Firefox e GitHub Pages.</div>
 
     <div class="card problema">
         <div class="badge">🚨 PROBLEMA SOCIAL</div>
@@ -44,7 +44,7 @@
     </div>
 
     <div class="card genero">
-        <div class="badge">✍️ GÊNERO LITERÁRIO</div>
+        <div class="badge">✍️ GÊNERO LITERÁRIO (NARRATIVA)</div>
         <h2 id="generoTexto">---</h2>
     </div>
 
@@ -61,7 +61,7 @@
         <button onclick="limparTexto()">🧹 Limpar texto</button>
     </div>
 
-    <textarea id="meuTexto" rows="3" placeholder="Escreva seu poema, miniconto, carta..."></textarea>
+    <textarea id="meuTexto" rows="3" placeholder="Escreva seu texto (poema, conto, cena de terror, comédia, romance... use o gênero sorteado!)"></textarea>
 
     <div class="score-area">
         <span>⭐ Pontos:</span>
@@ -72,96 +72,114 @@
         <button onclick="zerarPontos()">Zerar</button>
     </div>
     <div id="debugMsg" class="debug">✅ Página carregada. Aguardando ações.</div>
-    <footer>🧠 Cada rodada: sorteie, crie, debata, pontue. Todos os botões funcionam via onclick.</footer>
+    <footer>🧠 Cada rodada: sorteie, crie um texto no gênero indicado, debata sobre o problema social, pontue.</footer>
 </div>
 
 <script>
-    // ---------- BANCO DE DADOS ----------
+    // ============================================================
+    // BANCO DE DADOS - SEM ERROS DE SINTAXE (sem vírgulas extras)
+    // ============================================================
+    
+    // Problemas sociais (lista simples, sem vírgula após último item)
     const problemas = [
-        "Racismo estrutural", "Fome e insegurança alimentar", "Desemprego", 
-        "Violência contra a mulher", "LGBTQIA+fobia", "Desinformação", 
-        "Acesso precário à saúde", "Moradia irregular", "Mudanças climáticas", 
-        "Trabalho infantil", "Capacitismo", "Intolerância religiosa"
+        "Racismo estrutural",
+        "Fome e insegurança alimentar",
+        "Desemprego",
+        "Violência contra a mulher",
+        "LGBTQIA+fobia",
+        "Desinformação",
+        "Acesso precário à saúde",
+        "Moradia irregular",
+        "Mudanças climáticas",
+        "Trabalho infantil",
+        "Capacitismo",
+        "Intolerância religiosa"
     ];
     
+    // Letras e palavras associadas (objeto sem vírgulas extras)
     const letrasPalavras = {
-        "A": ["amor", "acolhimento", "agir"], "C": ["coragem", "comunidade", "crítica"],
-        "D": ["dignidade", "denúncia", "diálogo"], "E": ["empatia", "esperança", "educação"],
-        "F": ["força", "futuro", "fratura"], "G": ["grito", "generosidade", "gente"],
-        "I": ["inclusão", "inconformismo", "iniciativa"], "L": ["liberdade", "luta", "literatura"],
-        "M": ["memória", "mudança", "mobilização"], "O": ["ousadia", "olhar crítico", "organização"],
-        "P": ["poesia", "periferia", "pacto"], "R": ["resistência", "rede", "respeito"],
-        "S": ["solidariedade", "sistema", "silêncio"], "T": ["ternura", "terra", "testemunho"],
+        "A": ["amor", "acolhimento", "agir"],
+        "C": ["coragem", "comunidade", "crítica"],
+        "D": ["dignidade", "denúncia", "diálogo"],
+        "E": ["empatia", "esperança", "educação"],
+        "F": ["força", "futuro", "fratura"],
+        "G": ["grito", "generosidade", "gente"],
+        "I": ["inclusão", "inconformismo", "iniciativa"],
+        "L": ["liberdade", "luta", "literatura"],
+        "M": ["memória", "mudança", "mobilização"],
+        "O": ["ousadia", "olhar crítico", "organização"],
+        "P": ["poesia", "periferia", "pacto"],
+        "R": ["resistência", "rede", "respeito"],
+        "S": ["solidariedade", "sistema", "silêncio"],
+        "T": ["ternura", "terra", "testemunho"],
         "V": ["voz", "vida digna", "vulnerabilidade"]
     };
-    // Preencher alfabeto completo
+    
+    // Preencher o alfabeto completo (letras que não estão no objeto acima)
     const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-    for (let l of alfabeto) {
-        if (!letrasPalavras[l]) letrasPalavras[l] = ["transformação", "consciência", "ação"];
+    for (let i = 0; i < alfabeto.length; i++) {
+        let letra = alfabeto[i];
+        if (!letrasPalavras[letra]) {
+            letrasPalavras[letra] = ["transformação", "consciência", "ação"];
+        }
     }
     
-    const generos = ["Poema (até 4 versos)", "Miniconto (máx 3 linhas)", "Carta aberta", 
-                     "Diálogo teatral", "Crônica curta", "Notícia ficcional"];
+    // GÊNEROS CONFORME SOLICITADO: Terror, Comédia, Romance, Aventura, Suspense, Drama, Ficção Científica, Fantasia
+    const generos = [
+        "Terror",
+        "Comédia",
+        "Romance",
+        "Aventura",
+        "Suspense",
+        "Drama",
+        "Ficção Científica",
+        "Fantasia"
+    ];
     
-    // Elementos DOM
-    let problemaEl, letraEl, palavrasEl, generoEl, textoArea, totalPontosSpan, debugSpan;
+    // ============================================================
+    // ELEMENTOS DO DOM
+    // ============================================================
+    let problemaEl, letraEl, palavrasEl, generoEl, textoArea, totalPontosSpan, debugSpan, timerDisplaySpan;
     
     // Variáveis do timer
     let timerInterval = null;
     let segundosRestantes = 90;
-    let timerDisplaySpan;
     
     // Pontuação
     let pontuacaoTotal = 0;
     
-    // Função de inicialização chamada pelo onload do body
-    function inicializarJogo() {
-        console.log("Inicializando jogo...");
-        // Capturar elementos
-        problemaEl = document.getElementById("problemaTexto");
-        letraEl = document.getElementById("letraTexto");
-        palavrasEl = document.getElementById("palavrasAssociadas");
-        generoEl = document.getElementById("generoTexto");
-        textoArea = document.getElementById("meuTexto");
-        totalPontosSpan = document.getElementById("totalPontos");
-        timerDisplaySpan = document.getElementById("timerDisplay");
-        debugSpan = document.getElementById("debugMsg");
-        
-        // Verificar se tudo foi encontrado
-        if (!problemaEl) debugSpan.innerText = "ERRO: elemento problemaTexto não encontrado!";
-        else debugSpan.innerText = "✅ Jogo inicializado. Clique em SORTEAR.";
-        
-        // Sorteio inicial
-        sortearTudo();
-        resetTimer();
-    }
+    // ============================================================
+    // FUNÇÕES PRINCIPAIS (todas serão expostas ao window)
+    // ============================================================
     
     function atualizarDebug(msg) {
         if (debugSpan) debugSpan.innerText = msg;
         console.log(msg);
     }
     
-    // Função de sorteio
     function sortearTudo() {
         try {
             // Problema
-            const problema = problemas[Math.floor(Math.random() * problemas.length)];
+            const indiceProblema = Math.floor(Math.random() * problemas.length);
+            const problema = problemas[indiceProblema];
             problemaEl.innerText = problema;
             
             // Letra
             const letrasKeys = Object.keys(letrasPalavras);
-            const letra = letrasKeys[Math.floor(Math.random() * letrasKeys.length)];
+            const indiceLetra = Math.floor(Math.random() * letrasKeys.length);
+            const letra = letrasKeys[indiceLetra];
             letraEl.innerText = letra;
             const palavras = letrasPalavras[letra];
             palavrasEl.innerText = "📌 " + palavras.join(" · ");
             
             // Gênero
-            const genero = generos[Math.floor(Math.random() * generos.length)];
+            const indiceGenero = Math.floor(Math.random() * generos.length);
+            const genero = generos[indiceGenero];
             generoEl.innerText = genero;
             
-            atualizarDebug(`🎲 Sorteado: ${problema} | Letra ${letra} | ${genero}`);
-        } catch(e) {
-            atualizarDebug("ERRO no sorteio: " + e.message);
+            atualizarDebug(`🎲 Sorteado: ${problema} | Letra ${letra} | Gênero: ${genero}`);
+        } catch (erro) {
+            atualizarDebug("ERRO no sorteio: " + erro.message);
         }
     }
     
@@ -175,7 +193,7 @@
         if (!timerDisplaySpan) return;
         let minutos = Math.floor(segundosRestantes / 60);
         let segs = segundosRestantes % 60;
-        timerDisplaySpan.innerText = `${minutos}:${segs < 10 ? '0'+segs : segs}`;
+        timerDisplaySpan.innerText = `${minutos}:${segs < 10 ? '0' + segs : segs}`;
         if (segundosRestantes <= 0 && timerInterval) {
             clearInterval(timerInterval);
             timerInterval = null;
@@ -187,7 +205,7 @@
         if (timerInterval) clearInterval(timerInterval);
         segundosRestantes = 90;
         atualizarTimerUI();
-        timerInterval = setInterval(() => {
+        timerInterval = setInterval(function() {
             if (segundosRestantes > 0) {
                 segundosRestantes--;
                 atualizarTimerUI();
@@ -207,24 +225,45 @@
         atualizarDebug("🔄 Timer resetado para 1:30");
     }
     
-    // Pontuação
-    function atualizarPontosUI() {
-        if (totalPontosSpan) totalPontosSpan.innerText = pontuacaoTotal;
-    }
-    
+    // Pontuação (usando Math.max para garantir valor mínimo - só por curiosidade)
     function adicionarPontos(valor) {
-        pontuacaoTotal += valor;
-        atualizarPontosUI();
-        atualizarDebug(`⭐ +${valor} pontos! Total: ${pontuacaoTotal}`);
+        // Exemplo de uso do Math.max: garante que o valor não seja negativo (caso alguém passe -1)
+        let pontosValidos = Math.max(0, valor);
+        pontuacaoTotal += pontosValidos;
+        if (totalPontosSpan) totalPontosSpan.innerText = pontuacaoTotal;
+        atualizarDebug(`⭐ +${pontosValidos} pontos! Total: ${pontuacaoTotal}`);
     }
     
     function zerarPontos() {
         pontuacaoTotal = 0;
-        atualizarPontosUI();
+        if (totalPontosSpan) totalPontosSpan.innerText = "0";
         atualizarDebug("Pontuação zerada.");
     }
     
-    // Tornar funções globais para o onclick funcionar
+    // Inicialização do jogo
+    function inicializarJogo() {
+        // Capturar elementos
+        problemaEl = document.getElementById("problemaTexto");
+        letraEl = document.getElementById("letraTexto");
+        palavrasEl = document.getElementById("palavrasAssociadas");
+        generoEl = document.getElementById("generoTexto");
+        textoArea = document.getElementById("meuTexto");
+        totalPontosSpan = document.getElementById("totalPontos");
+        timerDisplaySpan = document.getElementById("timerDisplay");
+        debugSpan = document.getElementById("debugMsg");
+        
+        if (!problemaEl) {
+            console.error("Elementos não encontrados!");
+            if (debugSpan) debugSpan.innerText = "ERRO: elementos do DOM não encontrados.";
+            return;
+        }
+        
+        sortearTudo();
+        resetTimer();
+        atualizarDebug("✅ Jogo inicializado com gêneros: Terror, Comédia, Romance, etc.");
+    }
+    
+    // Expor funções globalmente (para os onclick no HTML)
     window.sortearTudo = sortearTudo;
     window.limparTexto = limparTexto;
     window.iniciarTimer = iniciarTimer;
@@ -233,7 +272,7 @@
     window.zerarPontos = zerarPontos;
     window.inicializarJogo = inicializarJogo;
     
-    // Se o onload não funcionar por algum motivo, chama manualmente
+    // Iniciar quando o DOM estiver pronto
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", inicializarJogo);
     } else {
