@@ -26,7 +26,7 @@
         footer { font-size: 0.7rem; text-align: center; margin-top: 28px; color: #6f7e7a; }
         .debug { background: #ffecb3; padding: 10px; border-radius: 16px; margin-top: 15px; font-family: monospace; font-size: 0.8rem; text-align: center; }
         
-        /* Estilos do modal de regras */
+        /* Modal de regras - corrigido para não cortar */
         .modal {
             display: none;
             position: fixed;
@@ -41,11 +41,13 @@
         }
         .modal-content {
             background-color: #fef7e6;
-            margin: auto;
+            margin: 20px auto;
             padding: 20px;
             border-radius: 48px;
             width: 90%;
-            max-width: 500px;
+            max-width: 550px;
+            max-height: 85vh;
+            overflow-y: auto;
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             position: relative;
             animation: fadeIn 0.3s;
@@ -88,6 +90,14 @@
         .rules-summary strong {
             color: #2e7d64;
         }
+        .creditos {
+            margin-top: 15px;
+            font-size: 0.7rem;
+            text-align: center;
+            color: #6f7e7a;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -100,8 +110,8 @@
 
     <!-- Resumo rápido das regras -->
     <div class="rules-summary">
-        <strong>⚡ Resumo rápido:</strong> Sorteie um problema social + uma letra + um gênero. Crie um pequeno texto (poema, conto, cena) em até 1:30. O grupo debate e pontua de 1 a 3. Vence quem mais somar pontos!<br>
-        <strong>⭐ Pontuação:</strong> +1 (pertinente), +2 (criativo), +3 (impactante). Use os botões abaixo.
+        <strong>⚡ Resumo rápido:</strong> Sorteie um problema social + uma letra + um gênero. Escolha UMA das palavras associadas à letra. Crie um pequeno texto (poema, conto, cena) em até 1:30. O grupo debate (sem tempo fixo) e pontua de 1 a 3. Vence quem mais somar pontos!<br>
+        <strong>⭐ Pontuação:</strong> +1 (pertinente), +2 (criativo), +3 (impactante).
     </div>
 
     <div class="card problema">
@@ -110,7 +120,7 @@
     </div>
 
     <div class="card letra">
-        <div class="badge">🔤 LETRA + PALAVRAS</div>
+        <div class="badge">🔤 LETRA + PALAVRAS (escolha UMA)</div>
         <h2 id="letraTexto">---</h2>
         <div class="palavras" id="palavrasAssociadas">---</div>
     </div>
@@ -133,7 +143,7 @@
         <button onclick="limparTexto()">🧹 Limpar texto</button>
     </div>
 
-    <textarea id="meuTexto" rows="3" placeholder="Escreva seu texto (poema, conto, cena de terror, comédia, romance... use o gênero sorteado!)"></textarea>
+    <textarea id="meuTexto" rows="3" placeholder="Escreva seu texto (poema, conto, cena de terror, comédia, romance... use o gênero sorteado e UMA das palavras sugeridas!)"></textarea>
 
     <div class="score-area">
         <span>⭐ Pontos:</span>
@@ -144,7 +154,7 @@
         <button onclick="zerarPontos()">Zerar</button>
     </div>
     <div id="debugMsg" class="debug">✅ Página carregada. Aguardando ações.</div>
-    <footer>🧠 Cada rodada: sorteie, crie um texto no gênero indicado, debata sobre o problema social, pontue.</footer>
+    <footer>🧠 Cada rodada: sorteie, escolha UMA palavra da letra, crie um texto no gênero indicado, debata sobre o problema social (sem tempo limite), pontue.</footer>
 </div>
 
 <!-- Modal de regras -->
@@ -152,31 +162,35 @@
     <div class="modal-content">
         <span class="close-modal" onclick="fecharModalRegras()">&times;</span>
         <h2>📜 Regras do Jogo</h2>
-        <p><strong>Objetivo:</strong> Criar pequenos textos literários (poemas, minicontos, cenas) a partir de um problema social, uma letra do alfabeto e um gênero narrativo, estimulando reflexão e debate.</p>
+        <p><strong>Objetivo:</strong> Criar pequenos textos literários (poemas, minicontos, cenas) a partir de um problema social, uma letra do alfabeto (com palavras associadas) e um gênero narrativo, estimulando reflexão e debate.</p>
         <p><strong>Número de jogadores:</strong> 2 a 6 (pode ser solo ou cooperativo).</p>
         <p><strong>Como jogar (rodada):</strong></p>
         <ul>
-            <li>1️⃣ Clique em <strong>"SORTEAR COMBINAÇÃO"</strong> – será exibido: um Problema Social, uma Letra (com palavras associadas) e um Gênero (Terror, Comédia, Romance etc.).</li>
-            <li>2️⃣ Cada jogador, no seu turno, tem <strong>1 minuto e 30 segundos</strong> para criar um texto curto (máx. 4 linhas ou 30 segundos de fala) que relacione os três elementos.</li>
-            <li>3️⃣ Após a criação, o jogador lê em voz alta (ou mostra o texto). O grupo debate brevemente (1 minuto) sobre como a obra dialoga com o problema social.</li>
-            <li>4️⃣ <strong>Pontuação:</strong> Os demais jogadores avaliam de 1 a 3 estrelas usando os botões +1, +2, +3:
+            <li>1️⃣ Clique em <strong>"SORTEAR COMBINAÇÃO"</strong> – será exibido: um Problema Social, uma Letra (com 3 palavras sugeridas) e um Gênero (Terror, Comédia, Romance, Aventura, Suspense, Drama, Ficção Científica, Fantasia).</li>
+            <li>2️⃣ O jogador da vez <strong>escolhe UMA das três palavras</strong> associadas à letra sorteada (não precisa usar todas). Essa palavra será o tema central do texto.</li>
+            <li>3️⃣ O jogador tem <strong>1 minuto e 30 segundos</strong> (timer opcional) para criar um texto curto (máx. 4 linhas ou 30 segundos de fala) que relacione: problema social + palavra escolhida + gênero sorteado.</li>
+            <li>4️⃣ Após a criação, o jogador lê em voz alta (ou mostra o texto). O grupo então <strong>debate livremente</strong>, sem tempo determinado, sobre como a obra dialoga com o problema social.</li>
+            <li>5️⃣ <strong>Pontuação:</strong> Os demais jogadores avaliam de 1 a 3 estrelas usando os botões +1, +2, +3:
                 <ul>
                     <li><strong>+1</strong> – o texto é pertinente ao problema.</li>
-                    <li><strong>+2</strong> – criativo e usa bem a letra e o gênero.</li>
+                    <li><strong>+2</strong> – criativo e usa bem a palavra escolhida e o gênero.</li>
                     <li><strong>+3</strong> – impacto emocional/reflexivo, excelente integração.</li>
                 </ul>
             </li>
-            <li>5️⃣ O próximo jogador sorteia uma nova combinação e repete.</li>
+            <li>6️⃣ O próximo jogador sorteia uma nova combinação e repete.</li>
         </ul>
         <p><strong>Fim do jogo:</strong> Após 4-6 rodadas (ou quando desejarem), soma-se a pontuação. O jogador com mais pontos vence. Na versão cooperativa, o objetivo é produzir um “pequeno livro de ativismo literário” coletivo.</p>
         <p><strong>Dica educativa:</strong> Use o debate para aprofundar o problema social – o jogo é uma ferramenta de conscientização e expressão artística, não apenas competição.</p>
+        <div class="creditos">
+            ✨ Jogo desenvolvido por <strong>Sahmara Carolina</strong> ✨
+        </div>
         <p style="text-align:center; margin-top:15px;"><button onclick="fecharModalRegras()" style="background:#2e7d64;">Entendi, vamos jogar!</button></p>
     </div>
 </div>
 
 <script>
     // ============================================================
-    // BANCO DE DADOS - SEM ERROS DE SINTAXE (sem vírgulas extras)
+    // BANCO DE DADOS
     // ============================================================
     
     const problemas = [
@@ -265,7 +279,7 @@
             const genero = generos[indiceGenero];
             generoEl.innerText = genero;
             
-            atualizarDebug(`🎲 Sorteado: ${problema} | Letra ${letra} | Gênero: ${genero}`);
+            atualizarDebug(`🎲 Sorteado: ${problema} | Letra ${letra} | Gênero: ${genero} | Escolha UMA palavra: ${palavras.join(", ")}`);
         } catch (erro) {
             atualizarDebug("ERRO no sorteio: " + erro.message);
         }
@@ -325,7 +339,7 @@
         atualizarDebug("Pontuação zerada.");
     }
     
-    // Funções do modal de regras
+    // Funções do modal
     function abrirModalRegras() {
         document.getElementById("modalRegras").style.display = "flex";
     }
@@ -351,10 +365,10 @@
         
         sortearTudo();
         resetTimer();
-        atualizarDebug("✅ Jogo inicializado com gêneros: Terror, Comédia, Romance, etc.");
+        atualizarDebug("✅ Jogo inicializado com gêneros: Terror, Comédia, Romance, etc. Escolha UMA palavra associada à letra.");
     }
     
-    // Expor funções globais
+    // Expor funções globalmente
     window.sortearTudo = sortearTudo;
     window.limparTexto = limparTexto;
     window.iniciarTimer = iniciarTimer;
