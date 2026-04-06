@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Letras em Transformação | Jogo minimalista</title>
+    <title>Letras em Transformação | Design minimalista</title>
     <style>
         * {
             margin: 0;
@@ -12,7 +12,7 @@
         }
 
         body {
-            background: #808080; /* Cinza claro */
+            background: #5A5A5A; /* Cinza escuro */
             font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
             display: flex;
             justify-content: center;
@@ -21,15 +21,15 @@
             padding: 2rem;
         }
 
-        /* Container principal */
+        /* Container principal - cinza claro com borda preta */
         .game-container {
             max-width: 750px;
             width: 100%;
-            background: #5A5A5A; /* Cinza escuro */
+            background: #808080; /* Cinza claro */
             border-radius: 2rem;
             padding: 2rem;
-            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.3);
-            transition: all 0.2s ease;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.4);
+            border: 1px solid #000000; /* Borda preta */
         }
 
         /* Tipografia */
@@ -43,34 +43,34 @@
 
         .sub {
             color: #FFFFFF;
-            opacity: 0.8;
+            opacity: 0.9;
             font-size: 0.85rem;
-            border-left: 3px solid #FFFFFF;
+            border-left: 3px solid #000000;
             padding-left: 1rem;
             margin: 0.5rem 0 1.5rem 0;
             font-style: normal;
         }
 
-        /* Cards minimalistas */
+        /* Cards com borda preta */
         .card {
             background: #FFFFFF;
             border-radius: 1.5rem;
             padding: 1.2rem;
             margin: 1.2rem 0;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            transition: transform 0.1s ease;
+            border: 1px solid #000000;
         }
 
         .problema {
-            border-left: 6px solid #808080;
+            border-left: 6px solid #000000;
         }
 
         .letra {
-            border-left: 6px solid #5A5A5A;
+            border-left: 6px solid #000000;
         }
 
         .genero {
-            border-left: 6px solid #808080;
+            border-left: 6px solid #000000;
         }
 
         .badge {
@@ -78,7 +78,7 @@
             text-transform: uppercase;
             font-weight: 600;
             letter-spacing: 0.5px;
-            color: #5A5A5A;
+            color: #000000;
             margin-bottom: 0.4rem;
         }
 
@@ -98,12 +98,13 @@
             display: inline-block;
             margin-top: 0.6rem;
             color: #2c2c2c;
+            border: 1px solid #ddd;
         }
 
         /* Botões minimalistas */
         button {
-            background: #808080;
-            border: none;
+            background: #5A5A5A;
+            border: 1px solid #000000;
             padding: 0.6rem 1.4rem;
             font-size: 0.9rem;
             font-weight: 500;
@@ -113,44 +114,40 @@
             transition: 0.2s;
             margin-right: 0.6rem;
             margin-top: 0.5rem;
-            text-transform: capitalize;
         }
 
         button:hover {
-            background: #5A5A5A;
+            background: #3a3a3a;
             transform: translateY(-1px);
         }
 
         .btn-regras {
             background: #FFFFFF;
-            color: #5A5A5A;
-            border: 1px solid #e0e0e0;
+            color: #000000;
+            border: 1px solid #000000;
         }
 
         .btn-regras:hover {
-            background: #f5f5f5;
-            color: #333;
+            background: #e0e0e0;
         }
 
         /* Timer */
         .timer-area {
-            background: #FFFFFF10;
-            backdrop-filter: blur(2px);
             background: #FFFFFF;
-            color: #5A5A5A;
+            color: #000000;
             padding: 0.8rem;
             border-radius: 3rem;
             text-align: center;
             font-weight: 600;
             font-size: 1.3rem;
             margin: 1.2rem 0;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            border: 1px solid #000000;
         }
 
         textarea {
             width: 100%;
             border-radius: 1.5rem;
-            border: 1px solid #ddd;
+            border: 1px solid #000000;
             padding: 0.8rem 1rem;
             font-size: 0.9rem;
             font-family: inherit;
@@ -161,7 +158,7 @@
 
         textarea:focus {
             outline: none;
-            border-color: #808080;
+            border-color: #5A5A5A;
         }
 
         /* Pontuação */
@@ -172,14 +169,13 @@
             justify-content: space-between;
             align-items: center;
             margin: 1rem 0;
-            background: #FFFFFF10;
             padding: 0.5rem 0;
         }
 
         .score-btn {
             background: #FFFFFF;
-            color: #5A5A5A;
-            border: 1px solid #ddd;
+            color: #000000;
+            border: 1px solid #000000;
             padding: 0.3rem 1rem;
             font-size: 0.8rem;
         }
@@ -193,7 +189,7 @@
             text-align: center;
             margin-top: 1.8rem;
             padding-top: 1rem;
-            border-top: 1px solid rgba(255,255,255,0.2);
+            border-top: 1px solid #000000;
             color: #FFFFFF;
         }
 
@@ -206,6 +202,7 @@
             color: #FFFFFF;
             margin-top: 1rem;
             font-family: monospace;
+            border: 1px solid #000000;
         }
 
         /* Resumo das regras */
@@ -215,12 +212,13 @@
             padding: 0.8rem 1rem;
             margin: 1rem 0;
             font-size: 0.75rem;
-            border-left: 4px solid #808080;
+            border-left: 4px solid #000000;
             color: #2c2c2c;
+            border: 1px solid #000000;
         }
 
         .rules-summary strong {
-            color: #5A5A5A;
+            color: #000000;
         }
 
         /* Modal minimalista */
@@ -232,7 +230,7 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
+            background-color: rgba(0, 0, 0, 0.7);
             justify-content: center;
             align-items: center;
         }
@@ -249,12 +247,13 @@
             font-size: 0.85rem;
             line-height: 1.4;
             color: #1e1e1e;
+            border: 1px solid #000000;
         }
 
         .modal-content h2 {
             font-size: 1.3rem;
             margin-bottom: 0.8rem;
-            color: #5A5A5A;
+            color: #000000;
         }
 
         .modal-content ul {
@@ -271,20 +270,14 @@
         }
 
         .close-modal:hover {
-            color: #333;
+            color: #000;
         }
 
         /* Primeira letra maiúscula em textos e botões */
-        button, .badge, .sub, .rules-summary, .modal-content p, .modal-content li, footer, .debug {
-            text-transform: lowercase;
-        }
-        button::first-letter, .badge::first-letter, .sub::first-letter, .rules-summary p::first-letter, 
-        .modal-content p::first-letter, .modal-content li::first-letter, footer::first-letter, .debug::first-letter {
+        button::first-letter, .badge::first-letter, .sub::first-letter, 
+        .rules-summary p::first-letter, .modal-content p::first-letter, 
+        .modal-content li::first-letter, footer::first-letter, .debug::first-letter {
             text-transform: uppercase;
-        }
-        /* Para títulos e cabeçalhos já estão ok */
-        h1, h2, .badge {
-            text-transform: none;
         }
         h1::first-letter, h2::first-letter {
             text-transform: uppercase;
@@ -294,13 +287,14 @@
 <body>
 
 <div class="game-container">
-    <h1>📖 Letras em transformação</h1>
+    <h1>📖 Letras em Transformação</h1>
     <div class="sub">Jogo de criação literária e consciência social</div>
 
     <button class="btn-regras" onclick="abrirModalRegras()">📜 Regras e pontuação</button>
 
     <div class="rules-summary">
         <strong>⚡ Resumo rápido:</strong> Sorteie problema + letra (com 3 palavras) + gênero. Escolha uma palavra. Crie texto (até 1:30). Debata livremente. Pontue de 1 a 3.<br>
+        
         <strong>⭐ Pontuação:</strong> +1 (pertinente), +2 (criativo), +3 (impactante).
     </div>
 
@@ -348,11 +342,11 @@
     <footer>✨ Jogo desenvolvido por <strong>Sahmara Carolina</strong> ✨<br>Educação não formal – literatura e transformação social</footer>
 </div>
 
-<!-- Modal regras minimalista -->
+<!-- Modal regras -->
 <div id="modalRegras" class="modal">
     <div class="modal-content">
         <span class="close-modal" onclick="fecharModalRegras()">&times;</span>
-        <h2>📜 Regras do jogo</h2>
+        <h2>📜 REGRAS DO JOGO</h2>
         <p><strong>Objetivo:</strong> Criar textos literários a partir de problema social, letra (com palavra associada) e gênero.</p>
         <p><strong>Jogadores:</strong> 2 a 6 (ou solo/cooperativo).</p>
         <ul>
@@ -369,7 +363,7 @@
 </div>
 
 <script>
-    // ==================== DADOS OTIMIZADOS ====================
+    // ==================== DADOS ====================
     const letrasPalavras = {
         "A": ["amor", "acolhimento", "agir"],
         "C": ["coragem", "comunidade", "crítica"],
@@ -502,4 +496,5 @@
     else inicializarJogo();
 </script>
 </body>
+</html>
 </html>
