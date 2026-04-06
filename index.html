@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Letras em Transformação | Design minimalista</title>
+    <title>Letras em Transformação | Design moderno</title>
     <style>
         * {
             margin: 0;
@@ -12,8 +12,8 @@
         }
 
         body {
-            background: #3c3c3c; /* Fundo escuro */
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            background: #0d1117; /* Fundo escuro */
+            font-family: 'Segoe UI', 'Bahnschrift Light', 'Inter', system-ui, -apple-system, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -21,90 +21,84 @@
             padding: 2rem;
         }
 
-        /* Container principal - cinza médio */
+        /* Container principal */
         .game-container {
             max-width: 750px;
             width: 100%;
-            background: #7a7a7a; /* Container */
+            background: #151b23; /* Container */
             border-radius: 2rem;
             padding: 2rem;
-            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.4);
-            border: 1px solid #545454;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.5);
+            border: 1px solid #4a759b;
         }
 
-        /* Tipografia */
+        /* Título com fonte fina */
         h1 {
             font-size: 1.8rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
+            font-weight: 300; /* Fina, similar a Bahnschrift Light */
+            letter-spacing: -0.01em;
             color: #FFFFFF;
             margin-bottom: 0.25rem;
+            font-family: 'Bahnschrift Light', 'Segoe UI', system-ui, sans-serif;
         }
 
         .sub {
             color: #FFFFFF;
-            opacity: 0.9;
+            opacity: 0.85;
             font-size: 0.85rem;
-            border-left: 3px solid #545454;
+            border-left: 3px solid #4a759b;
             padding-left: 1rem;
             margin: 0.5rem 0 1.5rem 0;
             font-style: normal;
+            font-weight: 300;
         }
 
-        /* Cards com borda #545454 */
+        /* Cards */
         .card {
-            background: #FFFFFF;
+            background: #0d1117;
             border-radius: 1.5rem;
             padding: 1.2rem;
             margin: 1.2rem 0;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            border: 1px solid #545454;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            border: 1px solid #4a759b;
         }
 
-        .problema {
-            border-left: 6px solid #545454;
-        }
-
-        .letra {
-            border-left: 6px solid #545454;
-        }
-
-        .genero {
-            border-left: 6px solid #545454;
+        .problema, .letra, .genero {
+            border-left: 6px solid #4a759b;
         }
 
         .badge {
             font-size: 0.7rem;
             text-transform: uppercase;
-            font-weight: 600;
+            font-weight: 500;
             letter-spacing: 0.5px;
-            color: #545454;
+            color: #f78166;
             margin-bottom: 0.4rem;
         }
 
         h2 {
             font-size: 1.5rem;
-            font-weight: 600;
-            color: #1e1e1e;
+            font-weight: 400;
+            color: #FFFFFF;
             margin-bottom: 0.25rem;
         }
 
         .palavras {
-            background: #f0f0f0;
+            background: #1e2a36;
             font-family: 'Fira Code', monospace;
             font-size: 0.8rem;
             padding: 0.3rem 0.8rem;
             border-radius: 2rem;
             display: inline-block;
             margin-top: 0.6rem;
-            color: #2c2c2c;
-            border: 1px solid #545454;
+            color: #e0e0e0;
+            border: 1px solid #4a759b;
         }
 
-        /* Botões minimalistas */
+        /* Botões com contorno #f78166 */
         button {
-            background: #545454;
-            border: 1px solid #545454;
+            background: #0d1117;
+            border: 1.5px solid #f78166;
             padding: 0.6rem 1.4rem;
             font-size: 0.9rem;
             font-weight: 500;
@@ -117,48 +111,51 @@
         }
 
         button:hover {
-            background: #3a3a3a;
+            background: #f78166;
+            color: #0d1117;
             transform: translateY(-1px);
         }
 
         .btn-regras {
-            background: #FFFFFF;
-            color: #545454;
-            border: 1px solid #545454;
+            background: #f78166;
+            color: #0d1117;
+            border: 1.5px solid #f78166;
         }
 
         .btn-regras:hover {
-            background: #e0e0e0;
+            background: #e05a3c;
+            color: #FFFFFF;
         }
 
         /* Timer */
         .timer-area {
-            background: #FFFFFF;
-            color: #545454;
+            background: #0d1117;
+            color: #f78166;
             padding: 0.8rem;
             border-radius: 3rem;
             text-align: center;
-            font-weight: 600;
+            font-weight: 500;
             font-size: 1.3rem;
             margin: 1.2rem 0;
-            border: 1px solid #545454;
+            border: 1px solid #4a759b;
         }
 
         textarea {
             width: 100%;
             border-radius: 1.5rem;
-            border: 1px solid #545454;
+            border: 1px solid #4a759b;
             padding: 0.8rem 1rem;
             font-size: 0.9rem;
             font-family: inherit;
-            background: #FFFFFF;
+            background: #0d1117;
+            color: #FFFFFF;
             resize: vertical;
             margin: 0.8rem 0;
         }
 
         textarea:focus {
             outline: none;
-            border-color: #545454;
+            border-color: #f78166;
         }
 
         /* Pontuação */
@@ -170,18 +167,20 @@
             align-items: center;
             margin: 1rem 0;
             padding: 0.5rem 0;
+            color: #FFFFFF;
         }
 
         .score-btn {
-            background: #FFFFFF;
-            color: #545454;
-            border: 1px solid #545454;
+            background: #0d1117;
+            color: #f78166;
+            border: 1.5px solid #f78166;
             padding: 0.3rem 1rem;
             font-size: 0.8rem;
         }
 
         .score-btn:hover {
-            background: #e0e0e0;
+            background: #f78166;
+            color: #0d1117;
         }
 
         footer {
@@ -189,39 +188,40 @@
             text-align: center;
             margin-top: 1.8rem;
             padding-top: 1rem;
-            border-top: 1px solid #545454;
+            border-top: 1px solid #4a759b;
             color: #FFFFFF;
+            font-weight: 300;
         }
 
         .debug {
-            background: #FFFFFF20;
+            background: #0d1117;
             padding: 0.6rem;
             border-radius: 1.5rem;
             font-size: 0.7rem;
             text-align: center;
-            color: #FFFFFF;
+            color: #e0e0e0;
             margin-top: 1rem;
             font-family: monospace;
-            border: 1px solid #545454;
+            border: 1px solid #4a759b;
         }
 
         /* Resumo das regras */
         .rules-summary {
-            background: #FFFFFF;
+            background: #0d1117;
             border-radius: 1.2rem;
             padding: 0.8rem 1rem;
             margin: 1rem 0;
             font-size: 0.75rem;
-            border-left: 4px solid #545454;
-            color: #2c2c2c;
-            border: 1px solid #545454;
+            border-left: 4px solid #f78166;
+            color: #FFFFFF;
+            border: 1px solid #4a759b;
         }
 
         .rules-summary strong {
-            color: #545454;
+            color: #f78166;
         }
 
-        /* Modal minimalista */
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -230,30 +230,30 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.85);
             justify-content: center;
             align-items: center;
         }
 
         .modal-content {
-            background: #FFFFFF;
+            background: #151b23;
             border-radius: 2rem;
             padding: 1.5rem;
             width: 90%;
             max-width: 500px;
             max-height: 80vh;
             overflow-y: auto;
-            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.5);
             font-size: 0.85rem;
             line-height: 1.4;
-            color: #1e1e1e;
-            border: 1px solid #545454;
+            color: #FFFFFF;
+            border: 1px solid #4a759b;
         }
 
         .modal-content h2 {
             font-size: 1.3rem;
             margin-bottom: 0.8rem;
-            color: #545454;
+            color: #f78166;
         }
 
         .modal-content ul {
@@ -262,7 +262,7 @@
         }
 
         .close-modal {
-            color: #888;
+            color: #aaa;
             float: right;
             font-size: 1.6rem;
             font-weight: bold;
@@ -270,10 +270,10 @@
         }
 
         .close-modal:hover {
-            color: #545454;
+            color: #f78166;
         }
 
-        /* Primeira letra maiúscula em textos e botões */
+        /* Primeira letra maiúscula */
         button::first-letter, .badge::first-letter, .sub::first-letter, 
         .rules-summary p::first-letter, .modal-content p::first-letter, 
         .modal-content li::first-letter, footer::first-letter, .debug::first-letter {
@@ -357,7 +357,7 @@
             <li><strong>6. Próximo</strong> – novo sorteio, nova rodada.</li>
         </ul>
         <p><strong>Fim do jogo:</strong> Após 4-6 rodadas, soma-se pontos. Quem tiver mais pontos vence. Modo cooperativo: criar um "livro de ativismo literário".</p>
-        <p style="text-align:center; margin-top:1rem;"><button onclick="fecharModalRegras()" style="background:#545454; color:white;">Entendi, vamos jogar!</button></p>
+        <p style="text-align:center; margin-top:1rem;"><button onclick="fecharModalRegras()" style="background:#f78166; color:#0d1117;">Entendi, vamos jogar!</button></p>
     </div>
 </div>
 
