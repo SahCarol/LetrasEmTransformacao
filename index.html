@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letras em Transformação - Jogo de Literatura e Problemas Sociais</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', 'Roboto', sans-serif;
+        }
+        body {
+            background: linear-gradient(145deg, #1e2b2c 0%, #0f1a1b 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+        }
+        .game-container {
+            max-width: 800px;
+            width: 100%;
+            background: #fef7e6;
+            border-radius: 48px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.4);
+            padding: 1.8rem;
+            transition: all 0.2s;
+        }
+        h1 {
+            margin: 0 0 0.3rem 0;
+            font-size: 1.9rem;
+            color: #2d3e3f;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        h1 small {
+            font-size: 0.8rem;
+            background: #d9e3c6;
+            padding: 4px 12px;
+            border-radius: 40px;
+            color: #2d4a3b;
+        }
+        .sub {
+            color: #4a5b5e;
+            border-left: 4px solid #e3b23c;
+            padding-left: 16px;
+            margin: 10px 0 20px 0;
+            font-style: italic;
+        }
+        .card {
+            background: white;
+            border-radius: 32px;
+            padding: 1.5rem;
+            margin: 1.2rem 0;
+            box-shadow: 0 8px 12px rgba(0,0,0,0.05);
+            border: 1px solid #ffe1a0;
+        }
+        .problema {
+            background: #fceded;
+            border-left: 12px solid #c7362b;
+        }
+        .letra {
+            background: #eef5f0;
+            border-left: 12px solid #2e7d64;
+        }
+        .genero {
+            background: #fff0db;
+            border-left: 12px solid #e3b23c;
+        }
+        .badge {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 8px;
+        }
+        h2 {
+            margin: 0 0 8px 0;
+            font-size: 1.7rem;
+        }
+        .palavras {
+            font-family: monospace;
+            background: #e9ecef;
+            padding: 8px 12px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: 8px;
+        }
+        button {
+            background: #2e7d64;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 60px;
+            color: white;
+            cursor: pointer;
+            transition: 0.1s linear;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            margin-right: 10px;
+            margin-top: 8px;
+        }
+        button:hover {
+            background: #1e5b49;
+            transform: scale(0.97);
+        }
+        .timer-area {
+            background: #1e2b2c;
+            color: #ffe1a0;
+            padding: 12px;
+            border-radius: 60px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.4rem;
+            margin: 20px 0;
+        }
+        textarea {
+            width: 100%;
+            border-radius: 24px;
+            border: 1px solid #ddd;
+            padding: 12px;
+            font-size: 1rem;
+            margin: 10px 0;
+            resize: vertical;
+        }
+        .score-area {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+        .score-btn {
+            background: #e3b23c;
+            color: #2d3e3f;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+        }
+        footer {
+            font-size: 0.7rem;
+            text-align: center;
+            margin-top: 28px;
+            color: #6f7e7a;
+        }
+        @media (max-width: 550px) {
+            .game-container { padding: 1rem; }
+            h2 { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="game-container">
+    <h1>📖 Letras em Transformação <small>literatura + ação social</small></h1>
+    <div class="sub">⚡ sorteie um tema, crie um texto, transforme o olhar</div>
+
+    <div class="card problema" id="cardProblema">
+        <div class="badge">🚨 PROBLEMA SOCIAL</div>
+        <h2 id="problemaTexto">—</h2>
+    </div>
+
+    <div class="card letra" id="cardLetra">
+        <div class="badge">🔤 LETRA + PALAVRA-CHAVE</div>
+        <h2 id="letraTexto">—</h2>
+        <div class="palavras" id="palavrasAssociadas">✨ palavras inspiradoras</div>
+    </div>
+
+    <div class="card genero" id="cardGenero">
+        <div class="badge">✍️ GÊNERO LITERÁRIO</div>
+        <h2 id="generoTexto">—</h2>
+    </div>
+
+    <div class="timer-area">
+        ⏱️ <span id="timerDisplay">1:30</span> — tempo para criar
+        <div style="margin-top: 10px;">
+            <button id="startTimerBtn">▶ Iniciar timer (1:30)</button>
+            <button id="resetTimerBtn">🔄 Resetar</button>
+        </div>
+    </div>
+
+    <div>
+        <button id="sortearBtn">🎲 SORTEAR NOVA COMBINAÇÃO</button>
+        <button id="limparBtn">🧹 Limpar campo</button>
+    </div>
+
+    <textarea id="meuTexto" rows="3" placeholder="Escreva aqui o seu poema, miniconto, carta aberta... (máx 4 linhas ou 30s de fala)"></textarea>
+
+    <div class="score-area">
+        <span>⭐ Pontuação (opcional):</span>
+        <button class="score-btn" data-points="1">+1 (pertinente)</button>
+        <button class="score-btn" data-points="2">+2 (criativo)</button>
+        <button class="score-btn" data-points="3">+3 (impactante)</button>
+        <span>Total: <strong id="totalPontos">0</strong></span>
+        <button id="zerarPontos" class="score-btn">Zerar</button>
+    </div>
+    <footer>
+        💡 Jogue online: compartilhe a tela ou cada um no seu navegador. <br>
+        🧠 Após cada criação, converse sobre o problema social. O jogo é um gatilho para a reflexão.
+    </footer>
+</div>
+
+<script>
+    // ---------- BANCO DE DADOS DO JOGO ----------
+    const problemasSociais = [
+        "Racismo estrutural", "Fome e insegurança alimentar", "Desemprego e precarização", 
+        "Violência contra a mulher", "LGBTQIA+fobia", "Desinformação e fake news", 
+        "Acesso precário à saúde", "Moradia irregular / falta de moradia", 
+        "Mudanças climáticas e injustiça ambiental", "Trabalho infantil", 
+        "Capacitismo / discriminação contra pessoas com deficiência", 
+        "Intolerância religiosa", "Machismo no dia a dia", "Envelhecimento e abandono"
+    ];
+
+    const letrasPalavras = {
+        "A": ["amor", "acolhimento", "agir"], "C": ["coragem", "comunidade", "crítica"],
+        "D": ["dignidade", "denúncia", "diálogo"], "E": ["empatia", "esperança", "educação"],
+        "F": ["força", "futuro", "fratura social"], "G": ["grito", "generosidade", "gente"],
+        "I": ["inclusão", "inconformismo", "iniciativa"], "L": ["liberdade", "luta", "literatura"],
+        "M": ["memória", "mudança", "mobilização"], "O": ["ousadia", "olhar crítico", "organização"],
+        "P": ["poesia", "periferia", "pacto"], "R": ["resistência", "rede", "respeito"],
+        "S": ["solidariedade", "sistema", "silêncio"], "T": ["ternura", "terra", "testemunho"],
+        "V": ["voz", "vida digna", "vulnerabilidade"]
+    };
+    // completar alfabeto com mais letras (caso falte)
+    const todasLetras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+    for (let l of todasLetras) {
+        if (!letrasPalavras[l]) {
+            letrasPalavras[l] = ["transformação", "consciência", "ação"];
+        }
+    }
+
+    const generosLiterarios = [
+        "Poema (até 4 versos)", "Miniconto (máx 3 linhas)", "Carta aberta", 
+        "Diálogo teatral", "Crônica curta", "Notícia ficcional"
+    ];
+
+    // elementos DOM
+    const problemaEl = document.getElementById("problemaTexto");
+    const letraEl = document.getElementById("letraTexto");
+    const palavrasEl = document.getElementById("palavrasAssociadas");
+    const generoEl = document.getElementById("generoTexto");
+    const sortearBtn = document.getElementById("sortearBtn");
+    const limparBtn = document.getElementById("limparBtn");
+    const textoArea = document.getElementById("meuTexto");
+    const timerDisplaySpan = document.getElementById("timerDisplay");
+    const startTimerBtn = document.getElementById("startTimerBtn");
+    const resetTimerBtn = document.getElementById("resetTimerBtn");
+    const totalPontosSpan = document.getElementById("totalPontos");
+    const zerarPontosBtn = document.getElementById("zerarPontos");
+
+    let timerInterval = null;
+    let segundosRestantes = 90; // 1:30
+    let pontuacaoTotal = 0;
+
+    function atualizarTimerDisplay() {
+        let minutos = Math.floor(segundosRestantes / 60);
+        let segs = segundosRestantes % 60;
+        timerDisplaySpan.innerText = ${minutos}:${segs < 10 ? '0'+segs : segs};
+        if (segundosRestantes <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timerDisplaySpan.innerText = "0:00 ⏰ tempo encerrado!";
+        }
+    }
+
+    function iniciarTimer(duracaoSegundos = 90) {
+        if (timerInterval) clearInterval(timerInterval);
+        segundosRestantes = duracaoSegundos;
+        atualizarTimerDisplay();
+        timerInterval = setInterval(() => {
+            if (segundosRestantes > 0) {
+                segundosRestantes--;
+                atualizarTimerDisplay();
+            } else {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }, 1000);
+    }
+
+    function resetTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        segundosRestantes = 90;
+        atualizarTimerDisplay();
+        timerInterval = null;
+    }
+
+    function sortearElemento(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function sortearTudo() {
+        // Problema
+        const problema = sortearElemento(problemasSociais);
+        problemaEl.innerText = problema;
+        
+        // Letra
+        const letrasKeys = Object.keys(letrasPalavras);
+        const letraSorteada = sortearElemento(letrasKeys);
+        letraEl.innerText = letraSorteada;
+        const palavras = letrasPalavras[letraSorteada];
+        palavrasEl.innerText = 📌 ${palavras.join(" · ")};
+        
+        // Gênero
+        const genero = sortearElemento(generosLiterarios);
+        generoEl.innerText = genero;
+    }
+
+    function limparTexto() {
+        textoArea.value = "";
+    }
+
+    // Pontuação
+    function adicionarPontos(p) {
+        pontuacaoTotal += p;
+        totalPontosSpan.innerText = pontuacaoTotal;
+    }
+
+    function zerarPontos() {
+        pontuacaoTotal = 0;
+        totalPontosSpan.innerText = "0";
+    }
+
+    // Eventos
+    sortearBtn.addEventListener("click", () => {
+        sortearTudo();
+        resetTimer(); // opcional: resetar timer ao sortear novo tema
+    });
+    limparBtn.addEventListener("click", limparTexto);
+    startTimerBtn.addEventListener("click", () => iniciarTimer(90));
+    resetTimerBtn.addEventListener("click", resetTimer);
+    zerarPontosBtn.addEventListener("click", zerarPontos);
+    
+    document.querySelectorAll(".score-btn[data-points]").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            const pts = parseInt(e.target.getAttribute("data-points"));
+            adicionarPontos(pts);
+        });
+    });
+
+    // Sorteio inicial
+    sortearTudo();
+    resetTimer();
+</script>
+</body>
+</html>
