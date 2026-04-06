@@ -12,7 +12,7 @@
         }
 
         body {
-            background: #5A5A5A; /* Cinza escuro */
+            background: #3c3c3c; /* Fundo escuro */
             font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
             display: flex;
             justify-content: center;
@@ -21,15 +21,15 @@
             padding: 2rem;
         }
 
-        /* Container principal - cinza claro com borda preta */
+        /* Container principal - cinza médio */
         .game-container {
             max-width: 750px;
             width: 100%;
-            background: #808080; /* Cinza claro */
+            background: #7a7a7a; /* Container */
             border-radius: 2rem;
             padding: 2rem;
             box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.4);
-            border: 1px solid #000000; /* Borda preta */
+            border: 1px solid #545454;
         }
 
         /* Tipografia */
@@ -45,32 +45,32 @@
             color: #FFFFFF;
             opacity: 0.9;
             font-size: 0.85rem;
-            border-left: 3px solid #000000;
+            border-left: 3px solid #545454;
             padding-left: 1rem;
             margin: 0.5rem 0 1.5rem 0;
             font-style: normal;
         }
 
-        /* Cards com borda preta */
+        /* Cards com borda #545454 */
         .card {
             background: #FFFFFF;
             border-radius: 1.5rem;
             padding: 1.2rem;
             margin: 1.2rem 0;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            border: 1px solid #000000;
+            border: 1px solid #545454;
         }
 
         .problema {
-            border-left: 6px solid #000000;
+            border-left: 6px solid #545454;
         }
 
         .letra {
-            border-left: 6px solid #000000;
+            border-left: 6px solid #545454;
         }
 
         .genero {
-            border-left: 6px solid #000000;
+            border-left: 6px solid #545454;
         }
 
         .badge {
@@ -78,7 +78,7 @@
             text-transform: uppercase;
             font-weight: 600;
             letter-spacing: 0.5px;
-            color: #000000;
+            color: #545454;
             margin-bottom: 0.4rem;
         }
 
@@ -98,13 +98,13 @@
             display: inline-block;
             margin-top: 0.6rem;
             color: #2c2c2c;
-            border: 1px solid #ddd;
+            border: 1px solid #545454;
         }
 
         /* Botões minimalistas */
         button {
-            background: #5A5A5A;
-            border: 1px solid #000000;
+            background: #545454;
+            border: 1px solid #545454;
             padding: 0.6rem 1.4rem;
             font-size: 0.9rem;
             font-weight: 500;
@@ -123,8 +123,8 @@
 
         .btn-regras {
             background: #FFFFFF;
-            color: #000000;
-            border: 1px solid #000000;
+            color: #545454;
+            border: 1px solid #545454;
         }
 
         .btn-regras:hover {
@@ -134,20 +134,20 @@
         /* Timer */
         .timer-area {
             background: #FFFFFF;
-            color: #000000;
+            color: #545454;
             padding: 0.8rem;
             border-radius: 3rem;
             text-align: center;
             font-weight: 600;
             font-size: 1.3rem;
             margin: 1.2rem 0;
-            border: 1px solid #000000;
+            border: 1px solid #545454;
         }
 
         textarea {
             width: 100%;
             border-radius: 1.5rem;
-            border: 1px solid #000000;
+            border: 1px solid #545454;
             padding: 0.8rem 1rem;
             font-size: 0.9rem;
             font-family: inherit;
@@ -158,7 +158,7 @@
 
         textarea:focus {
             outline: none;
-            border-color: #5A5A5A;
+            border-color: #545454;
         }
 
         /* Pontuação */
@@ -174,8 +174,8 @@
 
         .score-btn {
             background: #FFFFFF;
-            color: #000000;
-            border: 1px solid #000000;
+            color: #545454;
+            border: 1px solid #545454;
             padding: 0.3rem 1rem;
             font-size: 0.8rem;
         }
@@ -189,7 +189,7 @@
             text-align: center;
             margin-top: 1.8rem;
             padding-top: 1rem;
-            border-top: 1px solid #000000;
+            border-top: 1px solid #545454;
             color: #FFFFFF;
         }
 
@@ -202,7 +202,7 @@
             color: #FFFFFF;
             margin-top: 1rem;
             font-family: monospace;
-            border: 1px solid #000000;
+            border: 1px solid #545454;
         }
 
         /* Resumo das regras */
@@ -212,13 +212,13 @@
             padding: 0.8rem 1rem;
             margin: 1rem 0;
             font-size: 0.75rem;
-            border-left: 4px solid #000000;
+            border-left: 4px solid #545454;
             color: #2c2c2c;
-            border: 1px solid #000000;
+            border: 1px solid #545454;
         }
 
         .rules-summary strong {
-            color: #000000;
+            color: #545454;
         }
 
         /* Modal minimalista */
@@ -247,13 +247,13 @@
             font-size: 0.85rem;
             line-height: 1.4;
             color: #1e1e1e;
-            border: 1px solid #000000;
+            border: 1px solid #545454;
         }
 
         .modal-content h2 {
             font-size: 1.3rem;
             margin-bottom: 0.8rem;
-            color: #000000;
+            color: #545454;
         }
 
         .modal-content ul {
@@ -270,7 +270,7 @@
         }
 
         .close-modal:hover {
-            color: #000;
+            color: #545454;
         }
 
         /* Primeira letra maiúscula em textos e botões */
@@ -287,14 +287,13 @@
 <body>
 
 <div class="game-container">
-    <h1>📖 Letras em Transformação</h1>
+    <h1>📖 Letras em transformação</h1>
     <div class="sub">Jogo de criação literária e consciência social</div>
 
     <button class="btn-regras" onclick="abrirModalRegras()">📜 Regras e pontuação</button>
 
     <div class="rules-summary">
         <strong>⚡ Resumo rápido:</strong> Sorteie problema + letra (com 3 palavras) + gênero. Escolha uma palavra. Crie texto (até 1:30). Debata livremente. Pontue de 1 a 3.<br>
-        
         <strong>⭐ Pontuação:</strong> +1 (pertinente), +2 (criativo), +3 (impactante).
     </div>
 
@@ -346,7 +345,7 @@
 <div id="modalRegras" class="modal">
     <div class="modal-content">
         <span class="close-modal" onclick="fecharModalRegras()">&times;</span>
-        <h2>📜 REGRAS DO JOGO</h2>
+        <h2>📜 Regras do jogo</h2>
         <p><strong>Objetivo:</strong> Criar textos literários a partir de problema social, letra (com palavra associada) e gênero.</p>
         <p><strong>Jogadores:</strong> 2 a 6 (ou solo/cooperativo).</p>
         <ul>
@@ -358,7 +357,7 @@
             <li><strong>6. Próximo</strong> – novo sorteio, nova rodada.</li>
         </ul>
         <p><strong>Fim do jogo:</strong> Após 4-6 rodadas, soma-se pontos. Quem tiver mais pontos vence. Modo cooperativo: criar um "livro de ativismo literário".</p>
-        <p style="text-align:center; margin-top:1rem;"><button onclick="fecharModalRegras()" style="background:#5A5A5A; color:white;">Entendi, vamos jogar!</button></p>
+        <p style="text-align:center; margin-top:1rem;"><button onclick="fecharModalRegras()" style="background:#545454; color:white;">Entendi, vamos jogar!</button></p>
     </div>
 </div>
 
@@ -496,5 +495,4 @@
     else inicializarJogo();
 </script>
 </body>
-</html>
 </html>
