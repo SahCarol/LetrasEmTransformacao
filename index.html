@@ -7,26 +7,26 @@
     <style>
         * { box-sizing: border-box; font-family: system-ui, 'Segoe UI', sans-serif; }
         body { background: #1e2b2c; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; margin: 0; }
-        .game-container { max-width: 800px; width: 100%; background: #fef7e6; border-radius: 48px; padding: 1.8rem; box-shadow: 0 20px 35px rgba(0,0,0,0.4); }
-        h1 { margin: 0 0 0.3rem; color: #2d3e3f; }
-        .sub { border-left: 4px solid #e3b23c; padding-left: 16px; margin: 10px 0 20px; font-style: italic; }
-        .card { background: white; border-radius: 32px; padding: 1.5rem; margin: 1.2rem 0; border: 1px solid #ffe1a0; }
-        .problema { background: #fceded; border-left: 12px solid #c7362b; }
-        .letra { background: #eef5f0; border-left: 12px solid #2e7d64; }
-        .genero { background: #fff0db; border-left: 12px solid #e3b23c; }
-        .badge { font-weight: bold; text-transform: uppercase; font-size: 0.7rem; margin-bottom: 8px; }
-        h2 { margin: 0 0 8px; font-size: 1.7rem; }
-        .palavras { font-family: monospace; background: #e9ecef; padding: 8px 12px; border-radius: 50px; display: inline-block; margin-top: 8px; }
-        button { background: #2e7d64; border: none; padding: 12px 24px; font-size: 1.1rem; font-weight: bold; border-radius: 60px; color: white; cursor: pointer; margin-right: 10px; margin-top: 8px; }
+        .game-container { max-width: 800px; width: 100%; background: #fef7e6; border-radius: 48px; padding: 1.5rem; box-shadow: 0 20px 35px rgba(0,0,0,0.4); }
+        h1 { margin: 0 0 0.2rem; color: #2d3e3f; font-size: 1.6rem; }
+        .sub { border-left: 4px solid #e3b23c; padding-left: 16px; margin: 8px 0 15px; font-style: italic; font-size: 0.8rem; }
+        .card { background: white; border-radius: 28px; padding: 1rem; margin: 1rem 0; border: 1px solid #ffe1a0; }
+        .problema { background: #fceded; border-left: 10px solid #c7362b; }
+        .letra { background: #eef5f0; border-left: 10px solid #2e7d64; }
+        .genero { background: #fff0db; border-left: 10px solid #e3b23c; }
+        .badge { font-weight: bold; text-transform: uppercase; font-size: 0.65rem; margin-bottom: 5px; }
+        h2 { margin: 0 0 5px; font-size: 1.4rem; }
+        .palavras { font-family: monospace; background: #e9ecef; padding: 6px 12px; border-radius: 50px; display: inline-block; margin-top: 6px; font-size: 0.8rem; }
+        button { background: #2e7d64; border: none; padding: 10px 20px; font-size: 1rem; font-weight: bold; border-radius: 60px; color: white; cursor: pointer; margin-right: 8px; margin-top: 6px; }
         button:hover { background: #1e5b49; }
-        .timer-area { background: #1e2b2c; color: #ffe1a0; padding: 12px; border-radius: 60px; text-align: center; font-weight: bold; font-size: 1.4rem; margin: 20px 0; }
-        textarea { width: 100%; border-radius: 24px; border: 1px solid #ddd; padding: 12px; font-size: 1rem; margin: 10px 0; }
-        .score-area { display: flex; gap: 10px; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-top: 15px; }
-        .score-btn { background: #e3b23c; color: #2d3e3f; padding: 6px 12px; font-size: 0.8rem; }
-        footer { font-size: 0.7rem; text-align: center; margin-top: 28px; color: #6f7e7a; }
-        .debug { background: #ffecb3; padding: 10px; border-radius: 16px; margin-top: 15px; font-family: monospace; font-size: 0.8rem; text-align: center; }
+        .timer-area { background: #1e2b2c; color: #ffe1a0; padding: 10px; border-radius: 50px; text-align: center; font-weight: bold; font-size: 1.2rem; margin: 15px 0; }
+        textarea { width: 100%; border-radius: 24px; border: 1px solid #ddd; padding: 10px; font-size: 0.9rem; margin: 8px 0; }
+        .score-area { display: flex; gap: 8px; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-top: 12px; }
+        .score-btn { background: #e3b23c; color: #2d3e3f; padding: 5px 12px; font-size: 0.75rem; }
+        footer { font-size: 0.7rem; text-align: center; margin-top: 20px; color: #6f7e7a; border-top: 1px solid #e0d5c0; padding-top: 12px; }
+        .debug { background: #ffecb3; padding: 8px; border-radius: 16px; margin-top: 12px; font-family: monospace; font-size: 0.75rem; text-align: center; }
         
-        /* Modal de regras - corrigido para não cortar */
+        /* Modal compacto com fonte menor */
         .modal {
             display: none;
             position: fixed;
@@ -42,75 +42,63 @@
         .modal-content {
             background-color: #fef7e6;
             margin: 20px auto;
-            padding: 20px;
-            border-radius: 48px;
+            padding: 15px 20px;
+            border-radius: 40px;
             width: 90%;
-            max-width: 550px;
-            max-height: 85vh;
+            max-width: 500px;
+            max-height: 80vh;
             overflow-y: auto;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            position: relative;
-            animation: fadeIn 0.3s;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            font-size: 0.8rem;
+            line-height: 1.35;
         }
         .modal-content h2 {
+            font-size: 1.2rem;
             margin-top: 0;
+            margin-bottom: 10px;
             color: #2d3e3f;
         }
         .modal-content ul, .modal-content p {
-            text-align: left;
-            line-height: 1.4;
+            margin: 6px 0;
+        }
+        .modal-content li {
+            margin-bottom: 4px;
         }
         .close-modal {
             color: #aaa;
             float: right;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: bold;
             cursor: pointer;
         }
-        .close-modal:hover {
-            color: black;
-        }
+        .close-modal:hover { color: black; }
         .btn-regras {
             background: #e3b23c;
             color: #2d3e3f;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            padding: 8px 16px;
         }
         .rules-summary {
             background: #e9f0e6;
-            border-radius: 24px;
-            padding: 10px 15px;
-            margin: 15px 0;
-            font-size: 0.85rem;
-            border-left: 5px solid #2e7d64;
+            border-radius: 20px;
+            padding: 8px 12px;
+            margin: 12px 0;
+            font-size: 0.75rem;
+            border-left: 4px solid #2e7d64;
         }
-        .rules-summary strong {
-            color: #2e7d64;
-        }
-        .creditos {
-            margin-top: 15px;
-            font-size: 0.7rem;
-            text-align: center;
-            color: #6f7e7a;
-            border-top: 1px solid #ddd;
-            padding-top: 10px;
-        }
+        .rules-summary strong { color: #2e7d64; }
     </style>
 </head>
 <body>
 <div class="game-container">
     <h1>📖 Letras em Transformação <span style="font-size:0.7rem;">🎭 Terror, Comédia, Romance...</span></h1>
-    <div class="sub">Clique nos botões – jogo 100% funcional no Firefox e GitHub Pages.</div>
+    <div class="sub">Clique nos botões – jogo funcional no Firefox e GitHub Pages.</div>
 
-    <!-- Botão para abrir regras completas -->
     <button class="btn-regras" onclick="abrirModalRegras()">📜 Regras e Pontuação</button>
 
-    <!-- Resumo rápido das regras -->
     <div class="rules-summary">
-        <strong>⚡ Resumo rápido:</strong> Sorteie um problema social + uma letra + um gênero. Escolha UMA das palavras associadas à letra. Crie um pequeno texto (poema, conto, cena) em até 1:30. O grupo debate (sem tempo fixo) e pontua de 1 a 3. Vence quem mais somar pontos!<br>
+        <strong>⚡ Resumo rápido:</strong> Sorteie problema + letra + gênero. Escolha UMA palavra da letra. Crie texto (até 1:30). Debata livremente. Pontue de 1 a 3.<br>
         <strong>⭐ Pontuação:</strong> +1 (pertinente), +2 (criativo), +3 (impactante).
     </div>
 
@@ -126,7 +114,7 @@
     </div>
 
     <div class="card genero">
-        <div class="badge">✍️ GÊNERO LITERÁRIO (NARRATIVA)</div>
+        <div class="badge">✍️ GÊNERO LITERÁRIO</div>
         <h2 id="generoTexto">---</h2>
     </div>
 
@@ -143,7 +131,7 @@
         <button onclick="limparTexto()">🧹 Limpar texto</button>
     </div>
 
-    <textarea id="meuTexto" rows="3" placeholder="Escreva seu texto (poema, conto, cena de terror, comédia, romance... use o gênero sorteado e UMA das palavras sugeridas!)"></textarea>
+    <textarea id="meuTexto" rows="2" placeholder="Escreva seu texto (use UMA palavra da letra e o gênero sorteado)"></textarea>
 
     <div class="score-area">
         <span>⭐ Pontos:</span>
@@ -153,109 +141,61 @@
         <span>Total: <strong id="totalPontos">0</strong></span>
         <button onclick="zerarPontos()">Zerar</button>
     </div>
-    <div id="debugMsg" class="debug">✅ Página carregada. Aguardando ações.</div>
-    <footer>🧠 Cada rodada: sorteie, escolha UMA palavra da letra, crie um texto no gênero indicado, debata sobre o problema social (sem tempo limite), pontue.</footer>
+    <div id="debugMsg" class="debug">✅ Jogo carregado. Clique em SORTEAR.</div>
+    
+    <!-- Créditos no rodapé -->
+    <footer>✨ Jogo desenvolvido por <strong>Sahmara Carolina</strong> ✨<br>🧠 Educação não formal – literatura e transformação social</footer>
 </div>
 
-<!-- Modal de regras -->
+<!-- Modal de regras compacto (fonte pequena, sem créditos) -->
 <div id="modalRegras" class="modal">
     <div class="modal-content">
         <span class="close-modal" onclick="fecharModalRegras()">&times;</span>
-        <h2>📜 Regras do Jogo</h2>
-        <p><strong>Objetivo:</strong> Criar pequenos textos literários (poemas, minicontos, cenas) a partir de um problema social, uma letra do alfabeto (com palavras associadas) e um gênero narrativo, estimulando reflexão e debate.</p>
-        <p><strong>Número de jogadores:</strong> 2 a 6 (pode ser solo ou cooperativo).</p>
-        <p><strong>Como jogar (rodada):</strong></p>
+        <h2>📜 Regras</h2>
+        <p><strong>Objetivo:</strong> Criar textos literários a partir de problema social, letra (com palavra associada) e gênero.</p>
+        <p><strong>Jogadores:</strong> 2 a 6 (ou solo/cooperativo).</p>
         <ul>
-            <li>1️⃣ Clique em <strong>"SORTEAR COMBINAÇÃO"</strong> – será exibido: um Problema Social, uma Letra (com 3 palavras sugeridas) e um Gênero (Terror, Comédia, Romance, Aventura, Suspense, Drama, Ficção Científica, Fantasia).</li>
-            <li>2️⃣ O jogador da vez <strong>escolhe UMA das três palavras</strong> associadas à letra sorteada (não precisa usar todas). Essa palavra será o tema central do texto.</li>
-            <li>3️⃣ O jogador tem <strong>1 minuto e 30 segundos</strong> (timer opcional) para criar um texto curto (máx. 4 linhas ou 30 segundos de fala) que relacione: problema social + palavra escolhida + gênero sorteado.</li>
-            <li>4️⃣ Após a criação, o jogador lê em voz alta (ou mostra o texto). O grupo então <strong>debate livremente</strong>, sem tempo determinado, sobre como a obra dialoga com o problema social.</li>
-            <li>5️⃣ <strong>Pontuação:</strong> Os demais jogadores avaliam de 1 a 3 estrelas usando os botões +1, +2, +3:
-                <ul>
-                    <li><strong>+1</strong> – o texto é pertinente ao problema.</li>
-                    <li><strong>+2</strong> – criativo e usa bem a palavra escolhida e o gênero.</li>
-                    <li><strong>+3</strong> – impacto emocional/reflexivo, excelente integração.</li>
-                </ul>
-            </li>
-            <li>6️⃣ O próximo jogador sorteia uma nova combinação e repete.</li>
+            <li><strong>1. Sortear</strong> – clique em "SORTEAR COMBINAÇÃO". Aparecerá: Problema Social + Letra (com 3 palavras) + Gênero (Terror, Comédia, Romance, Aventura, Suspense, Drama, Ficção Científica, Fantasia).</li>
+            <li><strong>2. Escolher uma palavra</strong> – das 3 sugeridas para a letra, o jogador escolhe apenas UMA (não precisa usar todas).</li>
+            <li><strong>3. Criar (1:30)</strong> – use o timer opcional. Texto curto (poema, miniconto, cena).</li>
+            <li><strong>4. Debate</strong> – sem tempo limite, o grupo discute a relação com o problema social.</li>
+            <li><strong>5. Pontuar</strong> – outros jogadores dão +1 (pertinente), +2 (criativo) ou +3 (impactante).</li>
+            <li><strong>6. Próximo</strong> – novo sorteio, nova rodada.</li>
         </ul>
-        <p><strong>Fim do jogo:</strong> Após 4-6 rodadas (ou quando desejarem), soma-se a pontuação. O jogador com mais pontos vence. Na versão cooperativa, o objetivo é produzir um “pequeno livro de ativismo literário” coletivo.</p>
-        <p><strong>Dica educativa:</strong> Use o debate para aprofundar o problema social – o jogo é uma ferramenta de conscientização e expressão artística, não apenas competição.</p>
-        <div class="creditos">
-            ✨ Jogo desenvolvido por <strong>Sahmara Carolina</strong> ✨
-        </div>
-        <p style="text-align:center; margin-top:15px;"><button onclick="fecharModalRegras()" style="background:#2e7d64;">Entendi, vamos jogar!</button></p>
+        <p><strong>Fim:</strong> após 4-6 rodadas, soma-se pontos. Maior pontuação vence. Modo cooperativo: criar um "livro de ativismo literário".</p>
+        <p style="text-align:center; margin:12px 0 0 0;"><button onclick="fecharModalRegras()" style="background:#2e7d64; padding:6px 18px; font-size:0.8rem;">Entendi, vamos jogar!</button></p>
     </div>
 </div>
 
 <script>
-    // ============================================================
-    // BANCO DE DADOS
-    // ============================================================
-    
+    // ==================== BANCO DE DADOS ====================
     const problemas = [
-        "Racismo estrutural",
-        "Fome e insegurança alimentar",
-        "Desemprego",
-        "Violência contra a mulher",
-        "LGBTQIA+fobia",
-        "Desinformação",
-        "Acesso precário à saúde",
-        "Moradia irregular",
-        "Mudanças climáticas",
-        "Trabalho infantil",
-        "Capacitismo",
-        "Intolerância religiosa"
+        "Racismo estrutural", "Fome e insegurança alimentar", "Desemprego",
+        "Violência contra a mulher", "LGBTQIA+fobia", "Desinformação",
+        "Acesso precário à saúde", "Moradia irregular", "Mudanças climáticas",
+        "Trabalho infantil", "Capacitismo", "Intolerância religiosa"
     ];
     
     const letrasPalavras = {
-        "A": ["amor", "acolhimento", "agir"],
-        "C": ["coragem", "comunidade", "crítica"],
-        "D": ["dignidade", "denúncia", "diálogo"],
-        "E": ["empatia", "esperança", "educação"],
-        "F": ["força", "futuro", "fratura"],
-        "G": ["grito", "generosidade", "gente"],
-        "I": ["inclusão", "inconformismo", "iniciativa"],
-        "L": ["liberdade", "luta", "literatura"],
-        "M": ["memória", "mudança", "mobilização"],
-        "O": ["ousadia", "olhar crítico", "organização"],
-        "P": ["poesia", "periferia", "pacto"],
-        "R": ["resistência", "rede", "respeito"],
-        "S": ["solidariedade", "sistema", "silêncio"],
-        "T": ["ternura", "terra", "testemunho"],
+        "A": ["amor", "acolhimento", "agir"], "C": ["coragem", "comunidade", "crítica"],
+        "D": ["dignidade", "denúncia", "diálogo"], "E": ["empatia", "esperança", "educação"],
+        "F": ["força", "futuro", "fratura"], "G": ["grito", "generosidade", "gente"],
+        "I": ["inclusão", "inconformismo", "iniciativa"], "L": ["liberdade", "luta", "literatura"],
+        "M": ["memória", "mudança", "mobilização"], "O": ["ousadia", "olhar crítico", "organização"],
+        "P": ["poesia", "periferia", "pacto"], "R": ["resistência", "rede", "respeito"],
+        "S": ["solidariedade", "sistema", "silêncio"], "T": ["ternura", "terra", "testemunho"],
         "V": ["voz", "vida digna", "vulnerabilidade"]
     };
-    
     const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-    for (let i = 0; i < alfabeto.length; i++) {
-        let letra = alfabeto[i];
-        if (!letrasPalavras[letra]) {
-            letrasPalavras[letra] = ["transformação", "consciência", "ação"];
-        }
-    }
+    for (let l of alfabeto) if (!letrasPalavras[l]) letrasPalavras[l] = ["transformação", "consciência", "ação"];
     
-    const generos = [
-        "Terror",
-        "Comédia",
-        "Romance",
-        "Aventura",
-        "Suspense",
-        "Drama",
-        "Ficção Científica",
-        "Fantasia"
-    ];
+    const generos = ["Terror", "Comédia", "Romance", "Aventura", "Suspense", "Drama", "Ficção Científica", "Fantasia"];
     
-    // ============================================================
-    // ELEMENTOS DO DOM
-    // ============================================================
+    // Elementos
     let problemaEl, letraEl, palavrasEl, generoEl, textoArea, totalPontosSpan, debugSpan, timerDisplaySpan;
     let timerInterval = null;
     let segundosRestantes = 90;
     let pontuacaoTotal = 0;
-    
-    // ============================================================
-    // FUNÇÕES DO JOGO
-    // ============================================================
     
     function atualizarDebug(msg) {
         if (debugSpan) debugSpan.innerText = msg;
@@ -264,88 +204,40 @@
     
     function sortearTudo() {
         try {
-            const indiceProblema = Math.floor(Math.random() * problemas.length);
-            const problema = problemas[indiceProblema];
-            problemaEl.innerText = problema;
-            
+            problemaEl.innerText = problemas[Math.floor(Math.random() * problemas.length)];
             const letrasKeys = Object.keys(letrasPalavras);
-            const indiceLetra = Math.floor(Math.random() * letrasKeys.length);
-            const letra = letrasKeys[indiceLetra];
+            const letra = letrasKeys[Math.floor(Math.random() * letrasKeys.length)];
             letraEl.innerText = letra;
             const palavras = letrasPalavras[letra];
             palavrasEl.innerText = "📌 " + palavras.join(" · ");
-            
-            const indiceGenero = Math.floor(Math.random() * generos.length);
-            const genero = generos[indiceGenero];
-            generoEl.innerText = genero;
-            
-            atualizarDebug(`🎲 Sorteado: ${problema} | Letra ${letra} | Gênero: ${genero} | Escolha UMA palavra: ${palavras.join(", ")}`);
-        } catch (erro) {
-            atualizarDebug("ERRO no sorteio: " + erro.message);
-        }
+            generoEl.innerText = generos[Math.floor(Math.random() * generos.length)];
+            atualizarDebug(`🎲 Sorteado | Letra ${letra} | Escolha UMA palavra: ${palavras.join(", ")}`);
+        } catch(e) { atualizarDebug("ERRO: " + e.message); }
     }
     
-    function limparTexto() {
-        if (textoArea) textoArea.value = "";
-        atualizarDebug("📝 Campo de texto limpo.");
-    }
+    function limparTexto() { textoArea.value = ""; atualizarDebug("📝 Texto limpo."); }
     
     function atualizarTimerUI() {
         if (!timerDisplaySpan) return;
-        let minutos = Math.floor(segundosRestantes / 60);
-        let segs = segundosRestantes % 60;
-        timerDisplaySpan.innerText = `${minutos}:${segs < 10 ? '0' + segs : segs}`;
-        if (segundosRestantes <= 0 && timerInterval) {
-            clearInterval(timerInterval);
-            timerInterval = null;
-            atualizarDebug("⏰ Tempo esgotado!");
-        }
+        let min = Math.floor(segundosRestantes/60);
+        let seg = segundosRestantes%60;
+        timerDisplaySpan.innerText = `${min}:${seg<10?'0'+seg:seg}`;
+        if (segundosRestantes<=0 && timerInterval) { clearInterval(timerInterval); timerInterval=null; atualizarDebug("⏰ Tempo esgotado!"); }
     }
-    
     function iniciarTimer() {
         if (timerInterval) clearInterval(timerInterval);
         segundosRestantes = 90;
         atualizarTimerUI();
-        timerInterval = setInterval(function() {
-            if (segundosRestantes > 0) {
-                segundosRestantes--;
-                atualizarTimerUI();
-            } else {
-                clearInterval(timerInterval);
-                timerInterval = null;
-            }
-        }, 1000);
-        atualizarDebug("⏳ Timer iniciado (1:30)");
+        timerInterval = setInterval(() => { if(segundosRestantes>0) { segundosRestantes--; atualizarTimerUI(); } else { clearInterval(timerInterval); timerInterval=null; } }, 1000);
+        atualizarDebug("⏳ Timer 1:30 iniciado");
     }
+    function resetTimer() { if(timerInterval) clearInterval(timerInterval); segundosRestantes=90; atualizarTimerUI(); timerInterval=null; atualizarDebug("Timer resetado"); }
     
-    function resetTimer() {
-        if (timerInterval) clearInterval(timerInterval);
-        segundosRestantes = 90;
-        atualizarTimerUI();
-        timerInterval = null;
-        atualizarDebug("🔄 Timer resetado para 1:30");
-    }
+    function adicionarPontos(v) { pontuacaoTotal += Math.max(0,v); totalPontosSpan.innerText = pontuacaoTotal; atualizarDebug(`⭐ +${v} pontos | Total: ${pontuacaoTotal}`); }
+    function zerarPontos() { pontuacaoTotal = 0; totalPontosSpan.innerText = "0"; atualizarDebug("Pontos zerados"); }
     
-    function adicionarPontos(valor) {
-        let pontosValidos = Math.max(0, valor);
-        pontuacaoTotal += pontosValidos;
-        if (totalPontosSpan) totalPontosSpan.innerText = pontuacaoTotal;
-        atualizarDebug(`⭐ +${pontosValidos} pontos! Total: ${pontuacaoTotal}`);
-    }
-    
-    function zerarPontos() {
-        pontuacaoTotal = 0;
-        if (totalPontosSpan) totalPontosSpan.innerText = "0";
-        atualizarDebug("Pontuação zerada.");
-    }
-    
-    // Funções do modal
-    function abrirModalRegras() {
-        document.getElementById("modalRegras").style.display = "flex";
-    }
-    function fecharModalRegras() {
-        document.getElementById("modalRegras").style.display = "none";
-    }
+    function abrirModalRegras() { document.getElementById("modalRegras").style.display = "flex"; }
+    function fecharModalRegras() { document.getElementById("modalRegras").style.display = "none"; }
     
     function inicializarJogo() {
         problemaEl = document.getElementById("problemaTexto");
@@ -356,34 +248,23 @@
         totalPontosSpan = document.getElementById("totalPontos");
         timerDisplaySpan = document.getElementById("timerDisplay");
         debugSpan = document.getElementById("debugMsg");
-        
-        if (!problemaEl) {
-            console.error("Elementos não encontrados!");
-            if (debugSpan) debugSpan.innerText = "ERRO: elementos do DOM não encontrados.";
-            return;
-        }
-        
+        if(!problemaEl) { console.error("Erro"); return; }
         sortearTudo();
         resetTimer();
-        atualizarDebug("✅ Jogo inicializado com gêneros: Terror, Comédia, Romance, etc. Escolha UMA palavra associada à letra.");
+        atualizarDebug("✅ Pronto! Escolha UMA palavra da letra.");
     }
     
-    // Expor funções globalmente
     window.sortearTudo = sortearTudo;
     window.limparTexto = limparTexto;
     window.iniciarTimer = iniciarTimer;
     window.resetTimer = resetTimer;
     window.adicionarPontos = adicionarPontos;
     window.zerarPontos = zerarPontos;
-    window.inicializarJogo = inicializarJogo;
     window.abrirModalRegras = abrirModalRegras;
     window.fecharModalRegras = fecharModalRegras;
     
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", inicializarJogo);
-    } else {
-        inicializarJogo();
-    }
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", inicializarJogo);
+    else inicializarJogo();
 </script>
 </body>
 </html>
